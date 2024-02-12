@@ -108,8 +108,8 @@ fn main() {
 
     // utworzenie kopii może być niejawne implementacji wymaga copy trait
     let test = Test { value: 4 };
-    mutate_test(a); // niejawny clone
-    println!("{:?}", a);
+    mutate_test(test); // niejawny clone
+    println!("{:?}", test);
 }
 
 fn show(text: String) {

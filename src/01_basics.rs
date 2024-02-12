@@ -2,8 +2,8 @@
 #[allow(dead_code)]
 fn main() {
    // proste zmienne mogą być wydrukowane za pomocą makra println! oraz {} (wymagana implementacja Display trait)
-    // zmienne złożone jak np. struktury wymagają implementacji Debug trait i użycia {:?} lub {:#?} (pretty printing)
-    // możliwe jest także formatowanie {variable name:padding value alignment(<^>) minimum.maximum}
+   // zmienne złożone jak np. struktury wymagają implementacji Debug trait i użycia {:?} lub {:#?} (pretty printing)
+   // możliwe jest także formatowanie {variable name:padding value alignment(<^>) minimum.maximum}
 
     println!("Hello, world!");
 
