@@ -45,8 +45,6 @@ fn main() {
       const MONTH_OF_THE_YEAR: i8 = 4;
       const TIMEOUT: i64 = 3600 * 10;
 
-     // https://github.com/landrzejewski/rust-training
-
     /* Typy danych
 
       - muszą być znane/określone w czasie kompilacji - Rust jest statycznie typowany
