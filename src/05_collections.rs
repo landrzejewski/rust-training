@@ -3,10 +3,10 @@ use std::collections::HashMap;
 fn main() {
     // Vector
 
-    /*let mut numbers:Vec<i32> = Vec::new();
+    let mut numbers:Vec<i32> = Vec::new();
     numbers.push(1);
     numbers.push(2);
-    numbers.push(3);*/
+    numbers.push(3);
 
     let mut numbers = vec![1, 2, 3];
     let selected_number = numbers[0];
