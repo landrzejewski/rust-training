@@ -43,22 +43,22 @@ fn get_file_names(mode: &Mode, arguments: &Vec<String>) -> Vec<String> {
     }
 }
 
-fn print_line_with_line_numbers(line_number: &mut i32, current_line: String) {
+fn print_line_with_line_numbers(line_number: &mut i32, line: &String) {
     *line_number = *line_number + 1;
-    println!("{:6}:\t{}", line_number, current_line);
+    println!("{:6}:\t{}", line_number, line);
 }
 
-fn print_line_with_line_numbers_without_empty_lines(line_number: &mut i32, current_line: String) {
-    if !current_line.is_empty() {
+fn print_line_with_line_numbers_without_empty_lines(line_number: &mut i32, line: &String) {
+    if !line.is_empty() {
         *line_number = *line_number + 1;
-        println!("{:6}:\t{}", line_number, current_line);
+        println!("{:6}:\t{}", line_number, line);
     } else {
         println!();
     }
 }
 
-fn print_line(mut _line_number: &mut i32, current_line: String) {
-    println!("{}", current_line)
+fn print_line(_line_number: &mut i32, line: &String) {
+    println!("{}", line)
 }
 
 fn print_file_lines(mode: &Mode, file: &File) -> Result<(), Box<dyn Error>> {
@@ -72,8 +72,7 @@ fn print_file_lines(mode: &Mode, file: &File) -> Result<(), Box<dyn Error>> {
     
     let mut line_number = 0;
     for (_, line) in reader.lines().enumerate() {
-        let current_line = line?;
-        print(&mut line_number, current_line);
+        print(&mut line_number, &line?);
     }
     Ok(())
 }
