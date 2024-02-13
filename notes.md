@@ -12,11 +12,8 @@
 * Gra kończy się, kiedy wszystkie pola zostaną zajęte lub jeden z graczy zajmie sekwencję wygrywającą (kolumna, wiersz lub przekątna)
 * Interfejs gry powinien opierać się linię komend / terminal
 * 
-4. Napisz aplikacje umożliwiającą rejestrowanie wpływów i wydatków dla budżetu domowego. Aplikacja powinna rejestrować datę (opcjonalnie),
-   typ, rodzaj operacji oraz jej opis (podawane jako argumenty z linii poleceń), oraz generować raport/tabelkę (konsola)
-   z listą wszystkich operacji oraz podsumowaniem / bilansem końcowym. Aplikacja powinna utrwalać dane wprowadzone przez użytkownika w pliku tekstowym.
-   https://dev.to/ssivakumar/rust-date-time-e2k
-   https://practice.rs/formatted-output/formatting.html
+4. Napisz aplikacje umożliwiającą rejestrowanie wpływów i wydatków dla budżetu domowego. Aplikacja powinna rejestrować typ, rodzaj operacji oraz jej opis (podawane jako argumenty z linii poleceń)
+oraz generować raport/tabelkę (konsola) z listą wszystkich operacji oraz podsumowaniem / bilansem końcowym. Aplikacja powinna utrwalać dane wprowadzone przez użytkownika w pliku tekstowym
 
 5. Zaimplementuj następujące polecenia systemowe w Rust:
 - echo - drukuje tekst podany jako argument na standardowym wyjściu
