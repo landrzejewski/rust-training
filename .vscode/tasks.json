@@ -7,7 +7,7 @@
 			"problemMatcher": [
 				"$rustc"
 			],
-			"args": ["a", "b", "c"],
+			"args": ["notes.md", "cargo.toml"],
 			"label": "rust: cargo run"
 		}
 	]
