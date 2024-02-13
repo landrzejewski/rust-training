@@ -21,17 +21,14 @@ fn main() {
         }
     }
 
-
     // odczyt zawartości pliku linia po linii
-    let file = File::open("notes.md")
-        .unwrap();
+    let file = File::open("notes.md").unwrap();
     let reader = BufReader::new(file);
     for (index, line) in reader.lines().enumerate() {
         if let Ok(current_line) = line {
             println!("{}: {}", index + 1, current_line)
         }
     }
-
 
     // utworzenie pliku
     // let test_file = File::create("test.txt");
@@ -47,4 +44,5 @@ fn main() {
     if let Ok(mut output_file) = test_file {
         writeln!(output_file, "Test value").expect("panic message");
     }
+    
 }
