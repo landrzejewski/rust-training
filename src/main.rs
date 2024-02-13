@@ -11,7 +11,7 @@ fn show_help() {
 }
 
 fn main() {
-    let parameters = env::args()
+    let arguments = env::args()
         .skip(1)
         .collect::<Vec<_>>();
 

@@ -3,8 +3,8 @@ use std::env;
 const SEPARATOR: &str = " ";
 
 fn main() {
-    let parameters = env::args()
+    let arguments = env::args()
         .skip(1)
         .collect::<Vec<_>>();
-    println!("{}", parameters.join(SEPARATOR));
+    println!("{}", arguments.join(SEPARATOR));
 }
