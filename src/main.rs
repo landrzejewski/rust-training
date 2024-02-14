@@ -1,3 +1,5 @@
+use std::env;
+
 fn show_help() {
     println!("Usage:");
     println!("find regexp t1,t2,t3 path1 path2 ...");
@@ -13,5 +15,10 @@ fn get_arguments() -> Vec<String> {
 }
 
 fn main() {
-
+    let arguments = get_arguments();
+    if arguments.len() < 3 {
+        show_help();
+        return;
+    }
+    
 }
