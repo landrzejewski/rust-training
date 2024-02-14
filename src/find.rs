@@ -10,9 +10,10 @@ const ELEMENT_TYPE_SEPARATOR: &str = ",";
 
 fn show_help() {
     println!("Usage:");
-    println!("app text path1 path2 ...");
+    println!("find regexp t1,t2,t3 path1 path2 ...");
     println!("Args:");
-    println!("  text - text to find");
+    println!("  regexp - match/regular expression");
+    println!("  types - one or many types separated by comma. Types: dir,file,link");
 }
 
 enum ElementType {
