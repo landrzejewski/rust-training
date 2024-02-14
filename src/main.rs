@@ -1,12 +1,11 @@
+use std::{collections::HashMap, fs::File, io::{BufRead, BufReader}};
+
 use lib::get_arguments;
-use regex::Regex;
 use walkdir::{DirEntry, WalkDir};
 use utils::{assert, is_not_empty, min_length};
 
 mod utils;
 mod lib;
-
-const ELEMENT_TYPE_SEPARATOR: &str = ",";
 
 fn show_help() {
     println!("Usage:");
@@ -15,87 +14,68 @@ fn show_help() {
     println!("  text - text to find");
 }
 
-enum ElementType {
-    
-    Dir,
-    File,
-    Link
-
-}
-
-impl ElementType {
-    
-    fn from(text: &str) -> Option<Self> {
-        match text {
-            "dir" => Some(ElementType::Dir),
-            "file" => Some(ElementType::File),
-            "link" => Some(ElementType::Link),
-            _ => None
+fn get_lines_with_text(text: &String, file_path: &String) -> Vec<String> {
+    let mut lines: Vec<String> = vec![];
+    let Ok(file) = File::open(file_path) else {
+        return Vec::new();
+    };
+    let reader = BufReader::new(file);
+    for (index, line) in reader.lines().enumerate() {
+        if let Ok(current_line) = line {
+            if current_line.contains(text) {
+                lines.push(format!("{:6}:\t{}", index + 1, current_line));
+            }
         }
     }
-
+    lines
 }
 
-fn is_type_of(entry: &DirEntry, element_type: &ElementType) -> bool {
-    match element_type {
-        ElementType::Dir => entry.file_type().is_dir(),
-        ElementType::File => entry.file_type().is_file(),
-        ElementType::Link => entry.file_type().is_symlink(),
-    }
-}
+fn grep(text: &String, paths: &Vec<String>) -> HashMap<String, Vec<String>> {
+    let file_filter = |entry: &DirEntry| entry.file_type().is_file();
 
-fn find(regex: &Regex, element_types: &Vec<ElementType>, paths: &Vec<String>) -> Vec<String> {
-    let element_type_filter = |entry: &DirEntry| element_types
-        .iter()
-        .any(|element_type| is_type_of(entry, element_type));
-
-    let name_filter = |entry: &DirEntry| {
-        let Some(file_name) = entry.file_name().to_str() else {
-            return false;
-        };
-        regex.is_match(file_name)
-    };
-
-    let find_on_path = |path: &String| WalkDir::new(path)
+    let files = |path: &String| WalkDir::new(path)
         .into_iter()
         .filter_map(|result| result.ok())
-        .filter(element_type_filter)
-        .filter(name_filter)
-        .map(|entry| entry.path().display().to_string());;
+        .filter(file_filter)
+        .map(|entry| entry.path().display().to_string());
 
 
     println!("Searching...");
     
-    let mut result = Vec::new();
+    let file_paths: Vec<String> = paths
+        .iter()
+        .fold(Vec::new(), |result, path| result.iter()
+            .cloned()
+            .chain(files(path).into_iter())
+            .collect());
 
-    paths.iter()
-        .fold(&mut result, |result, path| { 
-            result.extend(find_on_path(path));
+    let mut result: HashMap<String, Vec<String>> = HashMap::new();
+
+    file_paths.iter()
+        .fold(&mut result, |result, file_path| { 
+            result.insert(file_path.clone(), get_lines_with_text(text, file_path));
             result
         });
 
-    return result;
+    return result
+        .into_iter()
+        .filter(|entry| !entry.1.is_empty())
+        .collect();
 }
 
 fn main() {
     let arguments = get_arguments();
-    assert(&arguments, min_length(3), show_help);
+    assert(&arguments, min_length(2), show_help);
 
-    let regex = Regex::new(&arguments[0])
-        .expect("Invalid regexp expression");
-    let element_types = arguments[1]
-        .split(ELEMENT_TYPE_SEPARATOR)
-        .map(|element| element.trim())
-        .filter_map(|element| ElementType::from(element))
-        .collect::<Vec<_>>();
-    assert(&element_types, is_not_empty(), show_help);
+    let text = &arguments[0].clone();
     let paths = arguments.iter()
-        .skip(2)
+        .skip(1)
         .cloned()
         .collect::<Vec<_>>();
     assert(&paths, is_not_empty(), show_help);
 
-    find(&regex, &element_types, &paths)
-        .iter()
-        .for_each(|path| println!("{path}"));
+    for (key, lines) in grep(&text, &paths).into_iter() {
+        println!("{key}");
+        lines.iter().for_each(|line| println!("{line}"));
+    };
 }

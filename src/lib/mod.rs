@@ -1,3 +1,4 @@
+use std::env;
 
 pub fn get_arguments() -> Vec<String> {
     env::args()

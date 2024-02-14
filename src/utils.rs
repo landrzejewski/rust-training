@@ -1,4 +1,4 @@
-use std::{env, process::exit};
+use std::{process::exit};
 
 pub fn assert<T>(value: T, predicate: impl Fn(T) -> bool, show_info: impl Fn()) {
     if !predicate(value) {
