@@ -1,7 +1,10 @@
-use std::{env, process::exit};
-
+use lib::get_arguments;
 use regex::Regex;
 use walkdir::{DirEntry, WalkDir};
+use utils::{assert, is_not_empty, min_length};
+
+mod utils;
+mod lib;
 
 const ELEMENT_TYPE_SEPARATOR: &str = ",";
 
@@ -11,12 +14,6 @@ fn show_help() {
     println!("Args:");
     println!("  regexp - match/regular expression");
     println!("  types - one or many types separated by comma. Types: dir,file,link");
-}
-
-fn get_arguments() -> Vec<String> {
-    env::args()
-    .skip(1)
-    .collect::<Vec<_>>()
 }
 
 enum ElementType {
@@ -38,21 +35,6 @@ impl ElementType {
         }
     }
 
-}
-
-fn assert<T>(value: T, predicate: impl Fn(T) -> bool) {
-    if !predicate(value) {
-        show_help();
-        exit(0);
-    }
-}
-
-fn min_length<T>(length: usize) -> impl Fn(&Vec<T>) -> bool {
-    move |values: &Vec<T>| values.len() >= length
-} 
-
-fn is_not_empty<T>() -> impl Fn(&Vec<T>) -> bool {
-    |values: &Vec<T>| !values.is_empty()
 }
 
 fn is_type_of(entry: &DirEntry, element_type: &ElementType) -> bool {
@@ -98,7 +80,7 @@ fn find(regex: &Regex, element_types: &Vec<ElementType>, paths: &Vec<String>) ->
 
 fn main() {
     let arguments = get_arguments();
-    assert(&arguments, min_length(3));
+    assert(&arguments, min_length(3), show_help);
 
     let regex = Regex::new(&arguments[0])
         .expect("Invalid regexp expression");
@@ -107,12 +89,12 @@ fn main() {
         .map(|element| element.trim())
         .filter_map(|element| ElementType::from(element))
         .collect::<Vec<_>>();
-    assert(&element_types, is_not_empty());
+    assert(&element_types, is_not_empty(), show_help);
     let paths = arguments.iter()
         .skip(2)
         .cloned()
         .collect::<Vec<_>>();
-    assert(&paths, is_not_empty());
+    assert(&paths, is_not_empty(), show_help);
 
     find(&regex, &element_types, &paths)
         .iter()
