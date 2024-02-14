@@ -63,7 +63,7 @@ fn is_type_of(entry: &DirEntry, element_type: &ElementType) -> bool {
     }
 }
 
-fn find(regex: &Regex, element_types: &Vec<ElementType>, paths: &Vec<String>) {
+fn find(regex: &Regex, element_types: &Vec<ElementType>, paths: &Vec<String>) -> Vec<String> {
     let element_type_filter = |entry: &DirEntry| element_types
         .iter()
         .any(|element_type| is_type_of(entry, element_type));
@@ -75,17 +75,25 @@ fn find(regex: &Regex, element_types: &Vec<ElementType>, paths: &Vec<String>) {
         regex.is_match(file_name)
     };
 
+    let find_on_path = |path: &String| WalkDir::new(path)
+        .into_iter()
+        .filter_map(|result| result.ok())
+        .filter(element_type_filter)
+        .filter(name_filter)
+        .map(|entry| entry.path().display().to_string());;
+
+
     println!("Searching...");
-    for path in paths {
-        WalkDir::new(path)
-            .into_iter()
-            .filter_map(|result| result.ok())
-            .filter(element_type_filter)
-            .filter(name_filter)
-            .map(|entry| entry.path().display().to_string())
-            .reduce(f)
-            .for_each(|path| println!("{path}"));
-    }
+    
+    let mut result = Vec::new();
+
+    paths.iter()
+        .fold(&mut result, |result, path| { 
+            result.extend(find_on_path(path));
+            result
+        });
+
+    return result;
 }
 
 fn main() {
@@ -106,5 +114,7 @@ fn main() {
         .collect::<Vec<_>>();
     assert(&paths, is_not_empty());
 
-    find(&regex, &element_types, &paths);
+    find(&regex, &element_types, &paths)
+        .iter()
+        .for_each(|path| println!("{path}"));
 }
