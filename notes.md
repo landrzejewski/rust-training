@@ -23,18 +23,21 @@ oraz generować raport/tabelkę (konsola) z listą wszystkich operacji oraz pods
 - grep - wyszukuje i drukuje linie zawierające wskazany tekst/pattern ze wskazanych plików/ścieżek
 
 6. Napisz prostą bazę danych, przechowującą dane w postaci binarnej z wykorzystaniem swobodnego dostępu. Przykład odczytu danych
-   z określonej pozycji w  pliku znajduje się poniżej. Na podobnej zasadzie należy zrealizować zapis.
-   Baza powinna umożliwiać następujące operacje: odczy rekordu po id, aktualizacja rekordu, usunięcie rekordu, dodanie rekordu.
-   W celu optymalizacji działania bazy wprowadź indeksowanie pozycji rekordów oraz prosty cache oparty o HashMap.
-   Pomyśl nad optymalnym sposobem usuwania rekordów oraz ponownym wykorzystaniem tego obszaru pliku.
-   Rekordy powinny mieć stałą długość poszczególnych pól, a ich definicja powinna znajdować się w sekcji nagłówkowej pliku.
-   Wystaw funkcjonalność stworzonej bazy za pomocą rest api, wykorzystując jeden z poznanych frameworków (actix, rocket)
+z określonej pozycji w  pliku znajduje się poniżej. Na podobnej zasadzie należy zrealizować zapis.
+Baza powinna umożliwiać następujące operacje: odczy rekordu po id, aktualizacja rekordu, usunięcie rekordu, dodanie rekordu.
+W celu optymalizacji działania bazy wprowadź indeksowanie pozycji rekordów oraz prosty cache oparty o HashMap.
+Pomyśl nad optymalnym sposobem usuwania rekordów oraz ponownym wykorzystaniem tego obszaru pliku.
+Rekordy powinny mieć stałą długość poszczególnych pól, a ich definicja powinna znajdować się w sekcji nagłówkowej pliku.
+Wystaw funkcjonalność stworzonej bazy za pomocą rest api, wykorzystując jeden z poznanych frameworków (actix, rocket)
 
+Przykładowy rekord:
+```
 id:i64
 first_name: string
 last_name: string
 is_active: bool
 age: u8
+```
 
 Odczy danych z określonej pozycji pliki
 ```

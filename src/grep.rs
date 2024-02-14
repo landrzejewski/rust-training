@@ -39,28 +39,13 @@ fn grep(text: &String, paths: &Vec<String>) -> HashMap<String, Vec<String>> {
         .filter(file_filter)
         .map(|entry| entry.path().display().to_string());
 
-
     println!("Searching...");
-    
-    let file_paths: Vec<String> = paths
-        .iter()
-        .fold(Vec::new(), |result, path| result.iter()
-            .cloned()
-            .chain(files(path).into_iter())
-            .collect());
-
-    let mut result: HashMap<String, Vec<String>> = HashMap::new();
-
-    file_paths.iter()
-        .fold(&mut result, |result, file_path| { 
-            result.insert(file_path.clone(), get_lines_with_text(text, file_path));
-            result
-        });
-
-    return result
-        .into_iter()
+    paths.iter()
+        .map(files)
+        .flat_map(|files| files)
+        .map(|path| (path.clone(), get_lines_with_text(text, &path)))
         .filter(|entry| !entry.1.is_empty())
-        .collect();
+        .collect()
 }
 
 fn main() {
