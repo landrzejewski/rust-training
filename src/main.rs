@@ -35,6 +35,5 @@ fn main() {
     // threads::run();
     // async_functions::run();
 
-    exercises::money_with_enums::run();
-    //memory_management::run();
+    memory_management::run();
 }
