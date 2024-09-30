@@ -35,5 +35,5 @@ fn main() {
     // threads::run();
     // async_functions::run();
 
-    memory_management::run();
+    exercises::tic_tac_toe::run();
 }
