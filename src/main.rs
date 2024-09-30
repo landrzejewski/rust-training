@@ -11,14 +11,14 @@ pub fn main() {
     - complex variables like structures can be printed using the println! macro and {:?} or {:#?} (pretty printing) - Debug trait is required
     - it is also possible to format the output {variable name:padding_symbol alignment(<^>) minimum.maximum precision}
      */
-    variable_declaration();
-    constant_declaration();
-    static_values();
-    data_types();
-    control_flow();
-    functions();
-    structs();
-    _ = enums();
+    //variable_declaration();
+    // constant_declaration();
+    // static_values();
+     data_types();
+    // control_flow();
+    // functions();
+    // structs();
+    // _ = enums();
 }
 
 #[allow(unused_assignments)]
@@ -306,7 +306,7 @@ fn control_flow() {
     }
 
     let some_condition = true;
-    let _option: char = if some_condition { 'a' } else { 'b' };
+    let _option = if some_condition { 'a' } else { 'b' };
 
     /*
     Match expression
@@ -317,7 +317,7 @@ fn control_flow() {
     let dice_roll = 3;
     let _roll_result = match dice_roll {
         6 => "Win",
-        val @ 1 => {
+        val @ (1 | 2) => {
             println!("You lost! {val}");
             "Loose"
         },
