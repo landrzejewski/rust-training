@@ -14,6 +14,11 @@ pub fn run() {
             .read_line(&mut provided_number)
             .expect("Read line failed");
 
+        let index: usize = provided_number
+            .trim()
+            .parse()
+            .expect("Please type a number");
+
         let guess = match provided_number.trim().parse::<i32>() {
             Ok(value) => value,
             Err(_) => {
