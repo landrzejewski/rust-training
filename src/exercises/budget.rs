@@ -11,7 +11,11 @@ struct Operation {
     operation_type: OperationType,
 }
 
-fn parse_args(args: &Vec<String>) -> Result<Operation, &str> {
+fn get_args() -> Vec<String> {
+    env::args().skip(1).collect()
+}
+
+fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
     let Some(amount_text) = args.get(0) else {
         return Err("Amount not provided")
     };
@@ -34,11 +38,13 @@ fn parse_args(args: &Vec<String>) -> Result<Operation, &str> {
 }
 
 pub fn run() -> Result<(), &'static str> {
-    let args = env::args().skip(1).collect::<Vec<String>>();
+    let args = get_args();
     if args.len() != 2 {
         return Err("Wrong number of arguments");
     }
-    let operation = parse_args(&args)?;
+    let Ok(operation) = parse_operation(&args) else {
+        return Err("Parse args failed");
+    };
 
     Ok(())
 }
