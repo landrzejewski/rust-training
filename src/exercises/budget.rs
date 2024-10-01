@@ -6,6 +6,7 @@ use std::io::{BufRead, BufReader, Write};
 const FILE_NAME: &str = "rusty_budget";
 const FIELD_SEPARATOR: &str = ";";
 
+#[derive(Debug)]
 enum OperationType {
     DEPOSIT,
     WITHDRAW
@@ -20,7 +21,7 @@ struct Operation {
 impl Display for Operation {
 
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}{}{}", self.amount, FIELD_SEPARATOR, self.description)
+        write!(f, "{}{}{}{}{:?}", self.amount, FIELD_SEPARATOR, self.description, FIELD_SEPARATOR, self.operation_type)
     }
 
 }
