@@ -32,11 +32,13 @@ fn main() {
     // language_basics::run();
     // memory_management::run();
     // collections_generics_traits::run();
-    basic_io::run();
+    // basic_io::run();
     // integration::run();
     // threads::run();
     // async_functions::run();
 
     //exercises::tic_tac_toe::run();
+
+    exercises::budget::run()
 
 }
