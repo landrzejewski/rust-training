@@ -24,14 +24,15 @@ mod exercises;
 mod language_basics;
 mod memory_management;
 mod collections_generics_traits;
+mod basic_io;
 
 fn main() {
     // println!("Hello World in Rust");
 
     // language_basics::run();
     // memory_management::run();
-     collections_generics_traits::run();
-    // basic_io::run();
+    // collections_generics_traits::run();
+    basic_io::run();
     // integration::run();
     // threads::run();
     // async_functions::run();
