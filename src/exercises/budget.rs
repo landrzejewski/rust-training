@@ -89,13 +89,22 @@ fn save_operations(operations: &Vec<Operation>) {
         );
 }
 
+fn display_operations(operations: &Vec<Operation>) {
+    for operation in operations {
+        println!("{}", operation);
+    }
+}
+
 pub fn run() -> Result<(), &'static str> {
+    let mut operations = load_operations();
     let args = get_args();
     if args.len() == 2 {
         let Ok(operation) = parse_operation(&args) else {
             return Err("Parsing arguments failed");
         };
-
+        operations.push(operation);
+        save_operations(&operations);
     }
+    display_operations(&operations);
     Ok(())
 }
