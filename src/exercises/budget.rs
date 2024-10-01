@@ -64,7 +64,7 @@ fn load_operations() -> Vec<Operation> {
     let file = File::open(FILE_NAME).expect("Couldn't open file");
     let reader = BufReader::new(file);
     let mut operations: Vec<Operation> = Vec::new();
-    for (_, line) in reader.lines().enumerate() {
+    for line in reader.lines() {
         let fields = line
             .expect("Couldn't read line")
             .split(FIELD_SEPARATOR)
