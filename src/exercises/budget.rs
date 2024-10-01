@@ -16,11 +16,11 @@ fn get_args() -> Vec<String> {
 }
 
 fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
-    /*let Some(amount) = args
-        .get(0)
-        .and_then(|text| text.trim().parse::<f64>().ok()) else {
+    /*
+    let Some(amount) = args.get(0).and_then(|text| text.trim().parse::<f64>().ok()) else {
         return Err("Invalid amount value");
-    };*/
+    };
+    */
 
     let Some(amount_text) = args.get(0) else {
         return Err("Amount not provided")
@@ -32,6 +32,7 @@ fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
     let Some(description) = args.get(1) else {
         return Err("Description not provided")
     };
+
     let operation_type = if amount >= 0.0 {
         OperationType::DEPOSIT
     } else {
@@ -46,12 +47,11 @@ fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
 
 pub fn run() -> Result<(), &'static str> {
     let args = get_args();
-    if args.len() != 2 {
-        return Err("Wrong number of arguments");
-    }
-    let Ok(operation) = parse_operation(&args) else {
-        return Err("Parse args failed");
-    };
+    if args.len() == 2 {
+        let Ok(operation) = parse_operation(&args) else {
+            return Err("Parsing arguments failed");
+        };
 
+    }
     Ok(())
 }
