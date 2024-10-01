@@ -1,4 +1,10 @@
 use std::env;
+use std::fmt::{Display, Formatter};
+use std::fs::{File, OpenOptions};
+use std::io::{BufRead, BufReader, Write};
+
+const FILE_NAME: &str = "rusty_budget";
+const FIELD_SEPARATOR: &str = ";";
 
 enum OperationType {
     DEPOSIT,
@@ -9,6 +15,14 @@ struct Operation {
     amount: f64,
     description: String,
     operation_type: OperationType,
+}
+
+impl Display for Operation {
+
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}{}{}", self.amount, FIELD_SEPARATOR, self.description)
+    }
+
 }
 
 fn get_args() -> Vec<String> {
@@ -43,6 +57,36 @@ fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
         description: description.to_string(),
         operation_type
     })
+}
+
+fn load_operations() -> Vec<Operation> {
+    let file = File::open(FILE_NAME).expect("Couldn't open file");
+    let reader = BufReader::new(file);
+    let mut operations: Vec<Operation> = Vec::new();
+    for (_, line) in reader.lines().enumerate() {
+        let fields = line
+            .expect("Couldn't read line")
+            .split(FIELD_SEPARATOR)
+            .map(|field| field.to_string())
+            .collect::<Vec<String>>();
+        let operation= parse_operation(&fields)
+            .expect("Couldn't parse operation");
+        operations.push(operation);
+    }
+    operations
+}
+
+fn save_operations(operations: &Vec<Operation>) {
+    let mut file = OpenOptions::new()
+        .write(true)
+        .create(true)
+        .append(false)
+        .open(FILE_NAME)
+        .expect("Couldn't open file");
+    operations.iter()
+        .for_each(|operation|
+            writeln!(file, "{}", operation).expect("Couldn't write to file")
+        );
 }
 
 pub fn run() -> Result<(), &'static str> {
