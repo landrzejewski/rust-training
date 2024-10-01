@@ -16,13 +16,6 @@ fn get_mode(arguments: &Vec<String>) -> Mode {
     }
 }
 
-fn get_file_names(mode: &Mode, arguments: &Vec<String>) -> Vec<String> {
-    match mode {
-        Mode::Plain => arguments.clone(),
-        _ => arguments[1..].to_vec()
-    }
-}
-
 fn show_help() {
     println!("Usage:");
     println!("cat [args] file1 file2 ...");
@@ -31,7 +24,7 @@ fn show_help() {
     println!("  -nb - show line numbers excluding blank lines");
 }
 
-fn get_arguments() -> Vec<String> {
+fn get_args() -> Vec<String> {
     env::args().skip(1).collect()
 }
 
@@ -78,12 +71,19 @@ fn cat(mode: &Mode, file_names: &Vec<String>) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn run() -> Result<(), Box<dyn Error>> {
-    let arguments = get_arguments();
-    if arguments.is_empty() {
+    let args = get_args();
+    if args.is_empty() {
         show_help();
         return Ok(());
     }
-    let mode = get_mode(&arguments);
-    let file_names = get_file_names(&mode, &arguments);
-    cat(&mode, &file_names)
+    let args_partitions: (Vec<String>, Vec<String>) = args
+        .into_iter()
+        .partition(|arg| arg.starts_with("-"));
+
+    let mode = if args_partitions.0.is_empty() {
+        Mode::Plain
+    } else {
+        get_mode(&args_partitions.0)
+    };
+    cat(&mode, &args_partitions.1)
 }

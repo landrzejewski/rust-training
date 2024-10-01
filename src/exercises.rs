@@ -6,3 +6,4 @@ pub mod tic_tac_toe;
 pub mod budget;
 pub mod echo;
 pub mod cat;
+pub mod wc;
