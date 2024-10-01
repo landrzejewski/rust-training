@@ -16,12 +16,19 @@ fn get_args() -> Vec<String> {
 }
 
 fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
+    /*let Some(amount) = args
+        .get(0)
+        .and_then(|text| text.trim().parse::<f64>().ok()) else {
+        return Err("Invalid amount value");
+    };*/
+
     let Some(amount_text) = args.get(0) else {
         return Err("Amount not provided")
     };
     let Ok(amount) = amount_text.trim().parse::<f64>() else {
         return Err("Amount is not a valid number");
     };
+
     let Some(description) = args.get(1) else {
         return Err("Description not provided")
     };
