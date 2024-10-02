@@ -25,6 +25,8 @@ mod collections_generics_traits;
 mod exercises;
 mod language_basics;
 mod memory_management;
+mod async_functions;
+mod threads;
 
 fn main() {
     // println!("Hello World in Rust");
@@ -34,10 +36,9 @@ fn main() {
     // collections_generics_traits::run();
     // basic_io::run();
     // integration::run();
-    // threads::run();
-    // async_functions::run();
+    //threads::run();
+     async_functions::run();
 
     //exercises::tic_tac_toe::run();
 
-    exercises::sales::run()
 }
