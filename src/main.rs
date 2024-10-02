@@ -20,11 +20,11 @@ cargo fmt                              # format source files in the project
 
 #![allow(dead_code)]
 // crate scope attribute (entire application)
+mod basic_io;
+mod collections_generics_traits;
 mod exercises;
 mod language_basics;
 mod memory_management;
-mod collections_generics_traits;
-mod basic_io;
 
 fn main() {
     // println!("Hello World in Rust");
@@ -39,6 +39,5 @@ fn main() {
 
     //exercises::tic_tac_toe::run();
 
-    exercises::cat::run();
-
+    exercises::find::run()
 }

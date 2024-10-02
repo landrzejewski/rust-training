@@ -9,7 +9,7 @@ const FIELD_SEPARATOR: &str = ";";
 #[derive(Debug)]
 enum OperationType {
     DEPOSIT,
-    WITHDRAW
+    WITHDRAW,
 }
 
 struct Operation {
@@ -19,11 +19,13 @@ struct Operation {
 }
 
 impl Display for Operation {
-
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}{}{}{}{:?}", self.amount, FIELD_SEPARATOR, self.description, FIELD_SEPARATOR, self.operation_type)
+        write!(
+            f,
+            "{}{}{}{}{:?}",
+            self.amount, FIELD_SEPARATOR, self.description, FIELD_SEPARATOR, self.operation_type
+        )
     }
-
 }
 
 fn get_args() -> Vec<String> {
@@ -38,14 +40,14 @@ fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
     */
 
     let Some(amount_text) = args.get(0) else {
-        return Err("Amount not provided")
+        return Err("Amount not provided");
     };
     let Ok(amount) = amount_text.trim().parse::<f64>() else {
         return Err("Amount is not a valid number");
     };
 
     let Some(description) = args.get(1) else {
-        return Err("Description not provided")
+        return Err("Description not provided");
     };
 
     let operation_type = if amount >= 0.0 {
@@ -56,7 +58,7 @@ fn parse_operation(args: &Vec<String>) -> Result<Operation, &str> {
     Ok(Operation {
         amount,
         description: description.to_string(),
-        operation_type
+        operation_type,
     })
 }
 
@@ -70,8 +72,7 @@ fn load_operations() -> Vec<Operation> {
             .split(FIELD_SEPARATOR)
             .map(|field| field.to_string())
             .collect::<Vec<String>>();
-        let operation= parse_operation(&fields)
-            .expect("Couldn't parse operation");
+        let operation = parse_operation(&fields).expect("Couldn't parse operation");
         operations.push(operation);
     }
     operations
@@ -84,10 +85,9 @@ fn save_operations(operations: &Vec<Operation>) {
         .append(false)
         .open(FILE_NAME)
         .expect("Couldn't open file");
-    operations.iter()
-        .for_each(|operation|
-            writeln!(file, "{}", operation).expect("Couldn't write to file")
-        );
+    operations
+        .iter()
+        .for_each(|operation| writeln!(file, "{}", operation).expect("Couldn't write to file"));
 }
 
 fn display_operations(operations: &Vec<Operation>) {

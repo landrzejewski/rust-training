@@ -1,9 +1,9 @@
 use std::rc::Rc;
 
 pub fn run() {
-   memory_management();
-   //  lifetimes();
-   // pointers();
+    memory_management();
+    //  lifetimes();
+    // pointers();
 }
 
 #[allow(unused_variables)]
@@ -94,13 +94,13 @@ fn memory_management() {
     let a = String::from("aaa");
     let b = &a;
     let c = &a;
-    println!("{},{},{}", a , b , c); // is ok, the owner is one, for this we have 2 views read only
+    println!("{},{},{}", a, b, c); // is ok, the owner is one, for this we have 2 views read only
 
     let mut a = String::from("aaa");
     let b = &mut a;
     b.push('b'); // b is not the owner, it is just a read only reference
-   // let c = &a; // read/access is not possible because there is still a chance of mutation (line below)
-     b.push('c'); // error
+                 // let c = &a; // read/access is not possible because there is still a chance of mutation (line below)
+    b.push('c'); // error
 
     /*
     Rust only allows 1 memory owner
@@ -200,10 +200,10 @@ fn lifetimes() {
     let s1 = String::from("abc");
     let result;
     {
-         //let s2 = String::from("def");
-         // result = get_longer(&s1, &s2);
-         let s2 = "def"; // str is alive/exists for the duration of the application
-         result = get_longer(s1.as_str(), s2);
+        //let s2 = String::from("def");
+        // result = get_longer(&s1, &s2);
+        let s2 = "def"; // str is alive/exists for the duration of the application
+        result = get_longer(s1.as_str(), s2);
     }
     println!("{}", result);
 
@@ -234,7 +234,7 @@ fn get_longer<'a>(text: &'a str, other_text: &'a str) -> &'a str {
 
 // Person instance cannot survive longer than the properties it holds/stores
 struct Person<'a, T> {
-    first_name: &'a str, // implicit static
+    first_name: &'a str,     // implicit static
     last_name: &'static str, // static denotes the lifetime of the entire program
     address: T,
 }
@@ -266,7 +266,10 @@ fn pointers() {
     // if you want to use the value yourself, you must dereference explicitly
     let _value = *boxed_number;
 
-    let a = Rc::new(Employee{name: String::from("Emily"), salary: 1000});
+    let a = Rc::new(Employee {
+        name: String::from("Emily"),
+        salary: 1000,
+    });
     println!("Reference count initially is {}", Rc::strong_count(&a));
 
     let b = Rc::clone(&a);
@@ -284,12 +287,11 @@ fn pointers() {
 
     // Note, Rust also supports non-owning "weak ref counts" which can be upgraded to "strong ref counts".
     // For details, see https://doc.rust-lang.org/std/rc/struct.Weak.html.
-
 }
 
 struct Employee {
     name: String,
-    salary: u64
+    salary: u64,
 }
 
 fn use_employee(rc_emp: &Rc<Employee>) {

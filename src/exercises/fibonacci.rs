@@ -2,7 +2,7 @@ fn fibonacci_recursive(n: u32) -> u64 {
     match n {
         0 => 0,
         1 => 1,
-        _ => fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+        _ => fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2),
     }
 }
 

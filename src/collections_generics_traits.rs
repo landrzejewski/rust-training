@@ -17,7 +17,7 @@ fn collections() {
     numbers.push(2);
     numbers.push(3);
     numbers.pop();
-    numbers.insert(0,0);
+    numbers.insert(0, 0);
 
     let mut letters = vec!['a', 'b'];
     // let letter = letters[10]; // panic
@@ -32,12 +32,14 @@ fn collections() {
 
     let letters_slice = &letters[0..1];
 
-    let modified_values:Vec<i32> = numbers.iter()
+    let modified_values: Vec<i32> = numbers
+        .iter()
         .map(|number| number * 2)
         .filter(|number| number % 2 == 0)
         .collect();
 
-    _ = numbers.iter_mut()
+    _ = numbers
+        .iter_mut()
         .map(|number| *number = *number * 2)
         .collect::<Vec<_>>();
 
@@ -48,7 +50,7 @@ fn collections() {
     // HashMap
 
     // let mut ratings = HashMap::<&str, i32>::new();
-    let mut ratings :HashMap<&str, i32> = HashMap::new();
+    let mut ratings: HashMap<&str, i32> = HashMap::new();
     ratings.insert("a", 1);
     ratings.insert("b", 2);
 
@@ -125,7 +127,9 @@ trait Show {
 
 // impl<T: Display + Clone> Display for Point<T> {
 
-impl<T> Display for Point<T> where T: Display + Clone,
+impl<T> Display for Point<T>
+where
+    T: Display + Clone,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "({}, {})", self.x, self.y)
@@ -190,12 +194,12 @@ fn generic_ops<T: Add<Output = T> + Sub<Output = T> + Display>(
 #[derive(Debug)]
 pub struct Coord {
     long: f32,
-    lat: f32
+    lat: f32,
 }
 
 impl Coord {
     pub fn new(long: f32, lat: f32) -> Coord {
-        Coord {long, lat}
+        Coord { long, lat }
     }
 }
 

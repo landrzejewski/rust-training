@@ -76,9 +76,8 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         show_help();
         return Ok(());
     }
-    let args_partitions: (Vec<String>, Vec<String>) = args
-        .into_iter()
-        .partition(|arg| arg.starts_with("-"));
+    let args_partitions: (Vec<String>, Vec<String>) =
+        args.into_iter().partition(|arg| arg.starts_with("-"));
 
     let mode = if args_partitions.0.is_empty() {
         Mode::Plain

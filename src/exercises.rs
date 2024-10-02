@@ -1,9 +1,14 @@
+pub mod budget;
+pub mod cat;
+pub mod echo;
 pub mod fibonacci;
+pub mod find;
+pub mod guess_game;
 pub mod money;
 pub mod money_with_enums;
-pub mod guess_game;
 pub mod tic_tac_toe;
-pub mod budget;
-pub mod echo;
-pub mod cat;
+mod utils;
 pub mod wc;
+pub mod grep;
+pub mod grep_classic;
+
