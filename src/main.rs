@@ -38,8 +38,7 @@ fn main() {
     // basic_io::run();
     // integration::run();
     //threads::run();
-     async_functions::run();
+    // async_functions::run();
 
-    //exercises::tic_tac_toe::run();
-
+    exercises::db::run()
 }

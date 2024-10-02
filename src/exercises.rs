@@ -13,3 +13,4 @@ pub mod grep;
 pub mod grep_classic;
 pub mod tree;
 pub mod sales;
+pub mod db;

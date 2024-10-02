@@ -78,3 +78,5 @@ println!("{}", s);
 ```
 
 https://docs.rust-embedded.org/book/start/hardware.html
+
+https://sages.link/MDI2MzY
