@@ -39,5 +39,5 @@ fn main() {
 
     //exercises::tic_tac_toe::run();
 
-    exercises::tree::run()
+    exercises::sales::run()
 }
