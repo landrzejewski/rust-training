@@ -41,7 +41,7 @@ fn is_type_of(entry: &DirEntry, element_type: &ElementType) -> bool {
 fn find(
     file_name_regex: &Regex,
     element_types: &Vec<ElementType>,
-    paths: &Vec<String>,
+    paths: &Vec<&String>,
 ) -> Vec<String> {
     let element_type_filter = |entry: &DirEntry| {
         element_types
@@ -89,7 +89,7 @@ pub fn run() {
         .filter_map(|element| ElementType::from(element))
         .collect::<Vec<_>>();
     assert(&element_types, is_not_empty(), show_help);
-    let paths = args.iter().skip(2).cloned().collect::<Vec<_>>();
+    let paths = args.iter().skip(2).collect::<Vec<_>>();
     assert(&paths, is_not_empty(), show_help);
 
     find(&regex, &element_types, &paths)

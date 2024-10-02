@@ -43,7 +43,7 @@ fn find_file_paths(path: &String) -> Vec<String> {
 
 fn print_lines_with_text(text: &String, file_paths: &Vec<String>) -> Result<(), Box<dyn Error>> {
     for file_path in file_paths {
-        let mut lines: Vec<String> = vec![];
+        let mut lines = vec![];
         let file = File::open(file_path)?;
         let reader = BufReader::new(file);
         for (index, line) in reader.lines().enumerate() {
