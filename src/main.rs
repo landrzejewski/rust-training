@@ -27,6 +27,7 @@ mod language_basics;
 mod memory_management;
 mod async_functions;
 mod threads;
+mod integration;
 
 fn main() {
     // println!("Hello World in Rust");

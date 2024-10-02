@@ -179,8 +179,10 @@ fn restrictions_after_defining_immutable_reference() {
 #[allow(unused_assignments)]
 fn lifetimes() {
     /*
-       - lifetime specifier does not change the lifetime of a reference, it only describes the relationship between the lifetimes of multiple references guaranteeing security
-       - lifetime ensure that each reference refers to a valid / existing memory, in other words, it guarantees that the memory will not be cleared until it needs to be used/accessed
+       - lifetime specifier does not change the lifetime of a reference,
+         it only describes the relationship between the lifetimes of multiple references guaranteeing security
+       - lifetime ensure that each reference refers to a valid / existing memory,
+         in other words, it guarantees that the memory will not be cleared until it needs to be used/accessed
     */
 
     let x;
