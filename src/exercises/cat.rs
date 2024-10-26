@@ -1,88 +1,82 @@
-use std::env;
-use std::error::Error;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::{env, fs::File, io::{BufRead, BufReader}};
+
+const ARG_PREFIX: &str = "-";
 
 enum Mode {
-    WithNumbering(bool),
-    Plain,
+    Default,
+    WithNumbering { ignore_empty: bool }
 }
 
-fn get_mode(arguments: &Vec<String>) -> Mode {
-    match arguments[0].as_str() {
-        "-n" => Mode::WithNumbering(true),
-        "-nb" => Mode::WithNumbering(false),
-        _ => Mode::Plain,
+impl Mode {
+
+    fn from(options: &Vec<String>) -> Mode {
+        if options.is_empty() {
+            Mode::Default
+        } else {
+            match options[0].as_str() {
+                "-n" => Mode::WithNumbering { ignore_empty: false },
+                "-nb" => Mode::WithNumbering { ignore_empty: true },
+                _ => Mode::Default
+            }
+        }
     }
+
+}
+
+fn main() {
+    let (options, paths) = get_input();
+    if paths.is_empty() {
+        show_help();
+        return;
+    }
+    let mode = Mode::from(&options);
+    cat(&mode, &paths);
+}
+
+fn get_input() -> (Vec<String>, Vec<String>) {
+    env::args().skip(1).partition(|arg| arg.starts_with(ARG_PREFIX))
 }
 
 fn show_help() {
     println!("Usage:");
-    println!("cat [args] file1 file2 ...");
-    println!("Args:");
+    println!("cat [option] file1, file2 ...");
+    println!("options:");
     println!("  -n - show line numbers");
-    println!("  -nb - show line numbers excluding blank lines");
+    println!("  -nb - show line numbers, ignore blank lines");
 }
 
-fn get_args() -> Vec<String> {
-    env::args().skip(1).collect()
+fn cat(mode: &Mode, paths: &Vec<String>) {
+    let print_line = match mode {
+        Mode::WithNumbering { ignore_empty: false } => print_with_numbering,
+        Mode::WithNumbering { ignore_empty: true } => print_with_numbering_ignoring_empty,
+        _ => print_line
+    };
+    for path in paths {
+        let Ok(file) = File::open(path) else {
+            eprintln!("Failed to open {path}");
+            continue;
+        };
+        println!("File: {path}");
+        let reader = BufReader::new(file);
+        for (line_number, line) in reader.lines().enumerate() {
+            let line_text = line.expect("Failed to read line");
+            print_line(line_number + 1, &line_text);
+        }
+    }
 }
 
-fn print_line(_line_number: &mut i32, line: &String) {
-    println!("{}", line)
+fn print_line(_line_number: usize, line: &String) {
+    println!("{line}");
 }
 
-fn print_with_line_numbers(line_number: &mut i32, line: &String) {
-    *line_number += 1;
-    println!("{:6}:\t{}", line_number, line);
+fn print_with_numbering(line_number: usize, line: &String) {
+    println!("{:3}:\t{}", line_number, line);
 }
 
-fn print_with_line_numbers_without_empty_lines(line_number: &mut i32, line: &String) {
+fn print_with_numbering_ignoring_empty(line_number: usize, line: &String) {
     if line.is_empty() {
         println!();
     } else {
-        print_with_line_numbers(line_number, line);
+        print_with_numbering(line_number, line);
     }
-}
-
-fn print_file_lines(mode: &Mode, file: &File) -> Result<(), Box<dyn Error>> {
-    let print = match mode {
-        Mode::WithNumbering(true) => print_with_line_numbers,
-        Mode::WithNumbering(false) => print_with_line_numbers_without_empty_lines,
-        Mode::Plain => print_line,
-    };
-
-    let mut line_number = 0;
-    let reader = BufReader::new(file);
-    for line in reader.lines() {
-        print(&mut line_number, &line?);
-    }
-    Ok(())
-}
-
-fn cat(mode: &Mode, file_names: &Vec<String>) -> Result<(), Box<dyn Error>> {
-    for file_name in file_names {
-        let file = File::open(file_name)?;
-        println!("File: {file_name}");
-        print_file_lines(&mode, &file)?;
-        println!();
-    }
-    Ok(())
-}
-
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let args = get_args();
-    if args.is_empty() {
-        show_help();
-        return Ok(());
-    }
-    let args_partitions: (Vec<String>, Vec<String>) =
-        args.into_iter().partition(|arg| arg.starts_with("-"));
-
-    let mode = if args_partitions.0.is_empty() {
-        Mode::Plain
-    } else {
-        get_mode(&args_partitions.0)
-    };
-    cat(&mode, &args_partitions.1)
 }
