@@ -18,13 +18,13 @@ cargo check                            # check/build code without generating exe
 cargo fmt                              # format source files in the project
 cargo clean                            # clean project
 */
-use crate::exercises::fibonacci::fibonacci;
 
+#![allow(dead_code)]
 mod exercises;
 mod language_basics;
 
-// use language_basics::run;
+use exercises::fibonacci;
 
 fn main() {
-    fibonacci(1);
+    fibonacci::run()
 }
