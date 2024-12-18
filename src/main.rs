@@ -29,7 +29,7 @@ use exercises::*;
 fn main() {
     // language_basics::run()
     // fibonacci::run()
+    // money::run();
+    // money_with_enums::run();
     // memory_management::run()
-    money::run();
-    money_with_enums::run();
 }
