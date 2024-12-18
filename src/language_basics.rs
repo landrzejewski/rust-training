@@ -9,14 +9,14 @@ pub fn run() {
     - complex variables like structures can be printed using the println! macro and {:?} or {:#?} (pretty printing) - Debug trait is required
     - it is also possible to format the output {variable name:padding_symbol alignment(<^>) minimum.maximum precision}
      */
-    variable_declaration();
-    constant_declaration();
-    static_values();
-    data_types();
-    control_flow();
-    functions();
-    structs();
-    _ = enums();
+    // variable_declaration();
+    // constant_declaration();
+    // static_values();
+    // data_types();
+    // control_flow();
+    // functions();
+    // structs();
+    // _ = enums();
 }
 
 #[allow(unused_assignments)]
@@ -521,7 +521,7 @@ fn structs() {
 
     let active = true;
     let mut account = Account {
-        email: String::from("john@training.pl"),
+        email: "john@training.pl".to_string(),
         password: String::from("123"),
         active, // shortcut for active: active
     };
@@ -541,8 +541,8 @@ fn structs() {
     // println!("{:?}", account); // error - after copying elements to other_account, we partially lost ownership (reference types)
 
     match point {
-        Point3d { x, y: 0, z } => println!("On the x axis at {}", x),
-        Point3d { x: 0, y, z } => println!("On the y axis at {}", y),
+        Point3d { x: 0, y, z } => println!("On the x axis at {}", x),
+        Point3d { x, y: 0, z } => println!("On the y axis at {}", y),
         Point3d { x, y, z } => println!("On neither axis: ({}, {})", x, y),
     }
 
@@ -598,6 +598,10 @@ impl Rectangle {
 
     fn is_bigger(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
+    }
+
+    fn new(width: u32, height: u32) -> Self {
+        Self { width, height }
     }
 
     fn square(size: u32) -> Self {
@@ -672,7 +676,9 @@ fn enums() -> Result<(), String> {
     }
     */
 
-    let _result = safe_div(3.0, 3.0).expect("Division by 0");
+    let _result = safe_div(3.0, 3.0).expect("Division by 0"); //.unwrap();
+
+    let val = safe_div(3.0, 3.0).unwrap_or(0.0);
 
     match safe_div(3.0, 3.0) {
         Some(value) => println!("3.0 / 3.0 = {}", value),
@@ -703,9 +709,11 @@ fn enums() -> Result<(), String> {
 
     let _result = safe_div_with_result(3.0, 3.0)?; // in case of Err return/exit function
 
+    safe_div_with_result(3.0, 3.0).ok();
+
     match safe_div_with_result(3.0, 3.0) {
         Ok(value) => println!("3.0 / 3.0 = {}", value),
-        Err(message) => println!("Errro: {message}"),
+        Err(message) => return Err(message)
     }
 
     // you can use unwrap_or() to extract Ok value from a Result, or use a fallback value if Err.
@@ -735,10 +743,10 @@ struct Money {
 
 #[derive(Debug)]
 enum Barcode {
-    Upc(i32, i32, i32, i32),
-    Qr(String),
-    Product { value: String, id: i64 },
     Other,
+    Qr(String),
+    Upc(i32, i32, i32, i32),
+    Product { value: String, id: i64 },
 }
 
 impl Barcode {

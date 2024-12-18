@@ -26,5 +26,6 @@ mod language_basics;
 use exercises::fibonacci;
 
 fn main() {
-    fibonacci::run()
+    // fibonacci::run()
+    language_basics::run()
 }
