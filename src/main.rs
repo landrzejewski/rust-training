@@ -22,10 +22,12 @@ cargo clean                            # clean project
 #![allow(dead_code)]
 mod exercises;
 mod language_basics;
+mod memory_management;
 
 use exercises::fibonacci;
 
 fn main() {
     // fibonacci::run()
-    language_basics::run()
+    // language_basics::run()
+    memory_management::run()
 }

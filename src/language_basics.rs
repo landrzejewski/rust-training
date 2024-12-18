@@ -720,7 +720,43 @@ fn enums() -> Result<(), String> {
     let parsed_value = i32::from_str_radix("FF", 16);
     println!("Result: {}", parsed_value.unwrap_or(-1));
 
+    // Option -> Result
+
+    let some_option: Option<i32> = Some(42);
+    let none_option: Option<i32> = None;
+
+    let result_some: Result<i32, &str> = some_option.ok_or("Value was None");
+    let result_none: Result<i32, &str> = none_option.ok_or("Value was None");
+
+    let result_some: Result<i32, String> = some_option.ok_or_else(|| "Value was None".to_string());
+    let result_none: Result<i32, String> = none_option.ok_or_else(|| "Value was None".to_string());
+
+    println!("{:?}", result_some); // Output: Ok(42)
+    println!("{:?}", result_none); // Output: Err("Value was None")
+
+    // Result -> Option
+
+    let success: Result<i32, &str> = Ok(42);
+    let error: Result<i32, &str> = Err("Something went wrong");
+
+    let success_option: Option<i32> = success.ok();
+    let error_option: Option<i32> = error.ok();
+
+    println!("{:?}", success_option); // Output: Some(42)
+    println!("{:?}", error_option);   // Output: None
+
+    let success_error: Option<&str> = success.err();
+    let error_error: Option<&str> = error.err();
+
+    println!("{:?}", success_error); // Output: None
+    println!("{:?}", error_error);   // Output: Some("Something went wrong")
+
     Ok(())
+}
+
+fn get_first_char(input: &str) -> Option<char> {
+    let string = input.chars().nth(0)?; // If `input` is `None`, this returns `None` immediately.
+    Some(string)
 }
 
 enum Currency {
