@@ -32,4 +32,5 @@ fn main() {
     // money::run();
     // money_with_enums::run();
     // memory_management::run()
+    guess_game::run()
 }
