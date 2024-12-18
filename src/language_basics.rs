@@ -633,6 +633,7 @@ Enums
 - represent the enumeration of fixed/possible variants
 - allow to define methods/behaviors (the same as for structures)
 */
+#[allow(unused_variables)]
 fn enums() -> Result<(), String> {
     let qr_code: Barcode = Barcode::Qr(String::from("345345345345"));
     let product_code = Barcode::Product {

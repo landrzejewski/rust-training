@@ -24,10 +24,12 @@ mod exercises;
 mod language_basics;
 mod memory_management;
 
-use exercises::fibonacci;
+use exercises::*;
 
 fn main() {
-    // fibonacci::run()
     // language_basics::run()
-    memory_management::run()
+    // fibonacci::run()
+    // memory_management::run()
+    money::run();
+    money_with_enums::run();
 }
