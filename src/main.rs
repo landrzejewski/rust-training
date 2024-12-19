@@ -27,10 +27,11 @@ mod memory_management;
 use exercises::*;
 
 fn main() {
-    // language_basics::run()
-    // fibonacci::run()
+    // language_basics::run();
+    // fibonacci::run();
     // money::run();
     // money_with_enums::run();
-    // memory_management::run()
-    guess_game::run()
+    // memory_management::run();
+    // guess_game::run();
+    tic_tac_toe::run()
 }

@@ -714,7 +714,7 @@ fn enums() -> Result<(), String> {
 
     match safe_div_with_result(3.0, 3.0) {
         Ok(value) => println!("3.0 / 3.0 = {}", value),
-        Err(message) => return Err(message)
+        Err(message) => return Err(message),
     }
 
     // you can use unwrap_or() to extract Ok value from a Result, or use a fallback value if Err.
@@ -744,13 +744,13 @@ fn enums() -> Result<(), String> {
     let error_option: Option<i32> = error.ok();
 
     println!("{:?}", success_option); // Output: Some(42)
-    println!("{:?}", error_option);   // Output: None
+    println!("{:?}", error_option); // Output: None
 
     let success_error: Option<&str> = success.err();
     let error_error: Option<&str> = error.err();
 
     println!("{:?}", success_error); // Output: None
-    println!("{:?}", error_error);   // Output: Some("Something went wrong")
+    println!("{:?}", error_error); // Output: Some("Something went wrong")
 
     Ok(())
 }

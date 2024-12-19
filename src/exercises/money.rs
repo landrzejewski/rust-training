@@ -22,7 +22,7 @@ impl MonetaryAmount {
 
     fn check_currency(&self, other: &MonetaryAmount) -> Result<(), String> {
         if self.currency != other.currency {
-            return Err(String::from("Invalid currency"))
+            return Err(String::from("Invalid currency"));
         }
         Ok(())
     }
