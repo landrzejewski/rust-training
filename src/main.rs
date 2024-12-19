@@ -23,6 +23,7 @@ cargo clean                            # clean project
 mod exercises;
 mod language_basics;
 mod memory_management;
+mod collections_generics_traits;
 
 use exercises::*;
 
@@ -33,5 +34,6 @@ fn main() {
     // money_with_enums::run();
     // memory_management::run();
     // guess_game::run();
-    tic_tac_toe::run()
+    // tic_tac_toe::run()
+    collections_generics_traits::run()
 }
