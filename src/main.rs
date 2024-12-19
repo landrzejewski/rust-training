@@ -38,5 +38,5 @@ fn main() {
     // tic_tac_toe::run()
     // collections_generics_traits::run()
     // basic_io::run();
-
+    echo::run();
 }
