@@ -5,3 +5,4 @@ pub mod money_with_enums;
 pub mod tic_tac_toe;
 pub mod sales;
 pub mod echo;
+pub mod budget;

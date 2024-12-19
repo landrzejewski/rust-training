@@ -20,7 +20,7 @@ pub fn run() {
     }
 
     // reading the contents of the file line by line
-    let file = File::open("exercises/description.md").unwrap();
+    let file = File::open("notes.md").unwrap();
     let reader = BufReader::new(file);
     for (index, line) in reader.lines().enumerate() {
         if let Ok(current_line) = line {
