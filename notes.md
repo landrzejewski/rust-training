@@ -11,3 +11,14 @@
 * Players take turns to occupy the vacant fields, placing their sign (circle or cross) on them
 * The game ends when all fields are occupied or one player occupies the winning sequence (column, row or diagonal)
 * The game interface should be based on the command line / terminal
+
+4. Write an application to record receipts/expenditures for the household budget. The application should record the amount,
+   type of operation and its description (given as command line arguments) and generate a report/table in terminal.
+   Report should contain all the operations and a summary/final balance. The application should save the data entered by the user in a plain text file
+
+5. Implement the following system commands in Rust:
+* echo - prints the text given as an argument to the standard output
+* cat - prints the contents of the indicated files on the standard output, allows optional line numbering, line numbering can be disabled for blank lines
+* wc - prints the number of bytes, characters, words and lines for the indicated files
+* find - searches and prints the paths of files and/or directories whose names match the indicated patterns
+* grep - finds and prints lines containing the indicated text/pattern from the indicated files/paths

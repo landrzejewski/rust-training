@@ -24,6 +24,7 @@ mod exercises;
 mod language_basics;
 mod memory_management;
 mod collections_generics_traits;
+mod basic_io;
 
 use exercises::*;
 
