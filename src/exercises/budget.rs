@@ -92,7 +92,7 @@ fn load_operations() -> Vec<Operation> {
         let fields = line
             .expect("Could not read line")
             .split(FIELD_SEPARATOR)
-            .map(|field| field.to_string())
+            .map(|field| field.into())
             .collect::<Vec<String>>();
         let operation = Operation {
             amount: get_field(0, &fields).parse().expect("Invalid amount"),
@@ -148,7 +148,7 @@ pub fn run() {
     }
     let mut operations = load_operations();
     if let Ok(operation) = parse(&args) {
-        // operations.push(operation);
+        operations.push(operation);
         save_operations(&operations);
     }
     display_operations(&operations);

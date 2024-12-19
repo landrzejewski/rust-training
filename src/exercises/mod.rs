@@ -1,4 +1,5 @@
 pub mod budget;
+pub mod cat;
 pub mod echo;
 pub mod fibonacci;
 pub mod guess_game;
@@ -6,4 +7,4 @@ pub mod money;
 pub mod money_with_enums;
 pub mod sales;
 pub mod tic_tac_toe;
-pub mod cat;
+pub mod wc;
