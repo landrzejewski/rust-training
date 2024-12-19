@@ -34,9 +34,7 @@ pub fn run() {
 }
 
 fn get_config() -> (Vec<String>, Vec<String>) {
-    env::args()
-        .skip(1)
-        .partition(|arg| arg.starts_with(ARG_PREFIX))
+    env::args().skip(1).partition(|arg| arg.starts_with(ARG_PREFIX))
 }
 
 fn show_help() {
@@ -62,9 +60,7 @@ fn cat(mode: &Mode, paths: &Vec<String>) {
         BufReader::new(file)
             .lines()
             .enumerate()
-            .for_each(|(line_number, line)| {
-                print_line(line_number + 1, &line.expect("Failed to read line"))
-            });
+            .for_each(|(line_number, line)| print_line(line_number + 1, &line.expect("Failed to read line")));
     }
 }
 

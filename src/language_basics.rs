@@ -78,19 +78,13 @@ static APP_NAME: &str = "Training app";
 
 static GLOBAL_TIMESTAMP: Lazy<DateTime<Utc>> = Lazy::new(|| {
     let now = Utc::now();
-    println!(
-        "global GLOBAL_TIMESTAMP: {} ***** initialization *****",
-        now.format("%T")
-    );
+    println!("global GLOBAL_TIMESTAMP: {} ***** initialization *****", now.format("%T"));
     return now;
 });
 
 fn static_values() {
     println!("\nIn f1, GLOBAL_MESSAGE:   {}", APP_NAME);
-    println!(
-        "In f1, GLOBAL_TIMESTAMP: {}",
-        (*GLOBAL_TIMESTAMP).format("%T")
-    );
+    println!("In f1, GLOBAL_TIMESTAMP: {}", (*GLOBAL_TIMESTAMP).format("%T"));
 
     // static mut LOCAL_COUNT: i32 = 0;
     // LOCAL_COUNT += 1; // mutable static variable is not thread safe, require unsafe block or some kind of synchronization
@@ -133,46 +127,14 @@ fn data_types() {
 
     println!("The smallest i8: {} The biggest i8: {}", i8::MIN, i8::MAX);
     println!("The smallest u8: {} The biggest u8: {}", u8::MIN, u8::MAX);
-    println!(
-        "The smallest i16: {} The biggest i16: {}",
-        i16::MIN,
-        i16::MAX
-    );
-    println!(
-        "The smallest u16: {} and the biggest u16: {}",
-        u16::MIN,
-        u16::MAX
-    );
-    println!(
-        "The smallest i32: {} The biggest i32: {}",
-        i32::MIN,
-        i32::MAX
-    );
-    println!(
-        "The smallest u32: {} The biggest u32: {}",
-        u32::MIN,
-        u32::MAX
-    );
-    println!(
-        "The smallest i64: {} The biggest i64: {}",
-        i64::MIN,
-        i64::MAX
-    );
-    println!(
-        "The smallest u64: {} The biggest u64: {}",
-        u64::MIN,
-        u64::MAX
-    );
-    println!(
-        "The smallest i128: {} The biggest i128: {}",
-        i128::MIN,
-        i128::MAX
-    );
-    println!(
-        "The smallest u128: {} The biggest u128: {}",
-        u128::MIN,
-        u128::MAX
-    );
+    println!("The smallest i16: {} The biggest i16: {}", i16::MIN, i16::MAX);
+    println!("The smallest u16: {} and the biggest u16: {}", u16::MIN, u16::MAX);
+    println!("The smallest i32: {} The biggest i32: {}", i32::MIN, i32::MAX);
+    println!("The smallest u32: {} The biggest u32: {}", u32::MIN, u32::MAX);
+    println!("The smallest i64: {} The biggest i64: {}", i64::MIN, i64::MAX);
+    println!("The smallest u64: {} The biggest u64: {}", u64::MIN, u64::MAX);
+    println!("The smallest i128: {} The biggest i128: {}", i128::MIN, i128::MAX);
+    println!("The smallest u128: {} The biggest u128: {}", u128::MIN, u128::MAX);
 
     // let a: u8 = 300; // in debug mode, the compiler adds integer overflow verification (assertion) and interrupts program execution in case of its occurrence
 
@@ -218,10 +180,7 @@ fn data_types() {
 
     let positive_value = positive_result as i32;
     let negative_value = negative_result as i32;
-    println!(
-        "Positive value: {}, negative value: {}",
-        positive_value, negative_value
-    );
+    println!("Positive value: {}, negative value: {}", positive_value, negative_value);
 
     let result = positive_result && negative_result; // logical expressions are shortened if the result is known after expanding part of the expression
 
@@ -238,18 +197,10 @@ fn data_types() {
     // Unlike chars, strings can occupy a varying number of bytes in memory (from 1 to 4 bytes)
 
     let str = "Lukasz";
-    println!(
-        "str1 is {} bytes and {} chars",
-        str.len(),
-        str.chars().count()
-    );
+    println!("str1 is {} bytes and {} chars", str.len(), str.chars().count());
     println!("str1 {:?} bytes.", "L".as_bytes());
     let other_str = "Łukasz";
-    println!(
-        "str1 is {} bytes and {} chars",
-        other_str.len(),
-        other_str.chars().count()
-    );
+    println!("str1 is {} bytes and {} chars", other_str.len(), other_str.chars().count());
     println!("str2 {:?} bytes.", "Ł".as_bytes());
 
     // iterating over character, despite how many bytes it occupies
@@ -267,30 +218,10 @@ fn data_types() {
     let slice3 = &message[2..5];
     let slice4 = &message[2..];
 
-    println!(
-        "s3 ptr: {:p}, len: {}, text: {}",
-        slice1.as_ptr(),
-        slice1.len(),
-        slice1
-    );
-    println!(
-        "s4 ptr: {:p}, len: {}, text: {}",
-        slice2.as_ptr(),
-        slice2.len(),
-        slice2
-    );
-    println!(
-        "s5 ptr: {:p}, len: {}, text: {}",
-        slice3.as_ptr(),
-        slice3.len(),
-        slice3
-    );
-    println!(
-        "s6 ptr: {:p}, len: {}, text: {}",
-        slice4.as_ptr(),
-        slice4.len(),
-        slice4
-    );
+    println!("s3 ptr: {:p}, len: {}, text: {}", slice1.as_ptr(), slice1.len(), slice1);
+    println!("s4 ptr: {:p}, len: {}, text: {}", slice2.as_ptr(), slice2.len(), slice2);
+    println!("s5 ptr: {:p}, len: {}, text: {}", slice3.as_ptr(), slice3.len(), slice3);
+    println!("s6 ptr: {:p}, len: {}, text: {}", slice4.as_ptr(), slice4.len(), slice4);
 
     /*
     Rust has two kind of strings:
@@ -300,12 +231,7 @@ fn data_types() {
 
     let text_slice: &'static str = "Hello"; // string literal
 
-    println!(
-        "{} {:p}, {}",
-        text_slice,
-        text_slice.as_ptr(),
-        text_slice.len()
-    ); // string slice knows the address of the first byte, and the number of bytes
+    println!("{} {:p}, {}", text_slice, text_slice.as_ptr(), text_slice.len()); // string slice knows the address of the first byte, and the number of bytes
 
     let text = String::from("Hello"); // instance oth the String type (vector of bytes)
 
@@ -473,10 +399,7 @@ fn control_flow() {
 fn functions() {
     println!("Addition result: {}", add(1, 2));
     println!("Validation result: {}", validate(10, is_even));
-    println!(
-        "Validation result: {}",
-        validate(10, |value| value % 2 == 0)
-    );
+    println!("Validation result: {}", validate(10, |value| value % 2 == 0));
 
     // block expression
     let _score = {
@@ -550,17 +473,11 @@ fn structs() {
         Point3d { x, .. } => println!("x is {}", x), // ignoring other elements of the structure
     }
 
-    let rectangle = Rectangle {
-        width: 100,
-        height: 50,
-    };
+    let rectangle = Rectangle { width: 100, height: 50 };
     println!("Rectangle area: {}", rectangle.area()); // == Rectangle::area(&rectangle);
 
     let square = Rectangle::square(10);
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        square.area()
-    ); // == Rectangle::area(&rectangle);
+    println!("The area of the rectangle is {} square pixels.", square.area()); // == Rectangle::area(&rectangle);
 }
 
 // unit struct
@@ -658,14 +575,8 @@ fn enums() -> Result<(), String> {
     }
 
     match product_code {
-        Barcode::Product {
-            id: id_value @ 4..=10,
-            value: _,
-        } => println!("Id in big range {id_value}"), // bind values in range
-        Barcode::Product {
-            id: 1..=3,
-            value: _,
-        } => println!("Id in small range"),
+        Barcode::Product { id: id_value @ 4..=10, value: _ } => println!("Id in big range {id_value}"), // bind values in range
+        Barcode::Product { id: 1..=3, value: _ } => println!("Id in small range"),
         _ => {}
     }
 

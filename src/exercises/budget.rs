@@ -42,11 +42,7 @@ struct Operation {
 
 impl Display for Operation {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}:{}:{}",
-            self.amount, self.description, self.operation_type
-        )
+        write!(f, "{}:{}:{}", self.amount, self.description, self.operation_type)
     }
 }
 
@@ -64,18 +60,9 @@ fn parse(args: &Vec<String>) -> Result<Operation, String> {
     let Ok(amount) = amount_text.parse::<f64>() else {
         return Err(String::from("Invalid amount value"));
     };
-    let operation_type = if amount < 0.0 {
-        OperationType::Withdraw
-    } else {
-        OperationType::Deposit
-    };
+    let operation_type = if amount < 0.0 { OperationType::Withdraw } else { OperationType::Deposit };
     let amount = amount.abs();
-    let description = args
-        .iter()
-        .skip(1)
-        .map(String::as_str)
-        .collect::<Vec<&str>>()
-        .join(DESCRIPTION_SEPARATOR);
+    let description = args.iter().skip(1).map(String::as_str).collect::<Vec<&str>>().join(DESCRIPTION_SEPARATOR);
     let operation = Operation {
         amount,
         description,
@@ -89,17 +76,11 @@ fn load_operations() -> Vec<Operation> {
     let reader = BufReader::new(file);
     let mut operations: Vec<Operation> = Vec::new();
     for line in reader.lines() {
-        let fields = line
-            .expect("Could not read line")
-            .split(FIELD_SEPARATOR)
-            .map(|field| field.into())
-            .collect::<Vec<String>>();
+        let fields = line.expect("Could not read line").split(FIELD_SEPARATOR).map(|field| field.into()).collect::<Vec<String>>();
         let operation = Operation {
             amount: get_field(0, &fields).parse().expect("Invalid amount"),
             description: get_field(1, &fields),
-            operation_type: get_field(2, &fields)
-                .try_into()
-                .expect("Invalid operation type"),
+            operation_type: get_field(2, &fields).try_into().expect("Invalid operation type"),
         };
         operations.push(operation);
     }
@@ -114,28 +95,16 @@ fn get_field(index: usize, fields: &Vec<String>) -> String {
 }
 
 fn save_operations(operations: &Vec<Operation>) {
-    let mut file = OpenOptions::new()
-        .write(true)
-        .create(true)
-        .append(false)
-        .open(FILE_NAME)
-        .expect("Couldn't open file");
-    operations
-        .iter()
-        .for_each(|operation| writeln!(file, "{}", operation).expect("Couldn't write to file"));
+    let mut file = OpenOptions::new().write(true).create(true).append(false).open(FILE_NAME).expect("Couldn't open file");
+    operations.iter().for_each(|operation| writeln!(file, "{}", operation).expect("Couldn't write to file"));
 }
 
 fn display_operations(operations: &Vec<Operation>) {
-    let total_amount =
-        operations
-            .iter()
-            .fold(0.0, |balance, operation| match operation.operation_type {
-                OperationType::Deposit => balance + operation.amount,
-                OperationType::Withdraw => balance - operation.amount,
-            });
-    operations
-        .iter()
-        .for_each(|operation| println!("{}", operation));
+    let total_amount = operations.iter().fold(0.0, |balance, operation| match operation.operation_type {
+        OperationType::Deposit => balance + operation.amount,
+        OperationType::Withdraw => balance - operation.amount,
+    });
+    operations.iter().for_each(|operation| println!("{}", operation));
     println!("-------------------------------------------------------------------");
     println!("Total amount: {:.2}", total_amount);
 }

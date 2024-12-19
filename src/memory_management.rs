@@ -296,8 +296,5 @@ struct Employee {
 
 fn use_employee(rc_emp: &Rc<Employee>) {
     let c = Rc::clone(&rc_emp);
-    println!(
-        "Reference count inside function is {}",
-        Rc::strong_count(&c)
-    );
+    println!("Reference count inside function is {}", Rc::strong_count(&c));
 }
