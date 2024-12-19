@@ -1,8 +1,9 @@
+pub mod budget;
+pub mod echo;
 pub mod fibonacci;
 pub mod guess_game;
 pub mod money;
 pub mod money_with_enums;
-pub mod tic_tac_toe;
 pub mod sales;
-pub mod echo;
-pub mod budget;
+pub mod tic_tac_toe;
+pub mod cat;

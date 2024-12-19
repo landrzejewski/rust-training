@@ -8,10 +8,11 @@ pub fn run() {
     generics_and_traits();
 }
 
+#[allow(unused_variables)]
 fn collections() {
     // Vectors
 
-     let mut numbers = Vec::<i32>::new();
+    let mut numbers = Vec::<i32>::new();
     //let mut numbers: Vec<i32> = Vec::new();
     numbers.push(1);
     numbers.push(2);
@@ -104,7 +105,7 @@ fn f64_to_string(value: f64) -> String {
 }
 
 //fn to_string<A>(value: A) -> String where A: Display + Debug {
-fn to_string<A:Display>(value: A) -> String {
+fn to_string<A: Display>(value: A) -> String {
     format!("{value}:{}", type_name::<A>())
 }
 
@@ -123,12 +124,11 @@ struct Point<T> {
     }*/
 }*/
 
-impl <A:Display> Point<A> {
+impl<A: Display> Point<A> {
     fn show(&self) {
         println!("({},{})", self.x, self.y)
     }
 }
-
 
 trait Show {
     fn get_info(&self) -> String;
@@ -140,7 +140,10 @@ trait Show {
 
 // impl<T: Display + Clone> Display for Point<T> {
 
-impl<T> Display for Point<T> where T: Display + Clone, {
+impl<T> Display for Point<T>
+where
+    T: Display + Clone,
+{
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "({}, {})", self.x, self.y)
     }

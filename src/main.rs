@@ -20,11 +20,11 @@ cargo clean                            # clean project
 */
 
 #![allow(dead_code)]
+mod basic_io;
+mod collections_generics_traits;
 mod exercises;
 mod language_basics;
 mod memory_management;
-mod collections_generics_traits;
-mod basic_io;
 
 use exercises::*;
 
@@ -38,6 +38,7 @@ fn main() {
     // tic_tac_toe::run()
     // collections_generics_traits::run()
     // basic_io::run();
-    budget::run();
+    // budget::run();
     // echo::run();
+    cat::run()
 }

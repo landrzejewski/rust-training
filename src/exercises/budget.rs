@@ -1,8 +1,8 @@
 use std::env::args;
 use std::fmt::{Display, Formatter};
 use std::fs::{File, OpenOptions};
-use std::process::exit;
 use std::io::{BufRead, BufReader, Write};
+use std::process::exit;
 
 const DESCRIPTION_SEPARATOR: &str = " ";
 const FIELD_SEPARATOR: &str = ":";
@@ -35,7 +35,7 @@ impl TryFrom<String> for OperationType {
 }
 
 struct Operation {
-    amount: u32,
+    amount: f64,
     description: String,
     operation_type: OperationType,
 }
@@ -61,12 +61,17 @@ fn parse(args: &Vec<String>) -> Result<Operation, String> {
     let Some(amount_text) = args.first() else {
         return Err(String::from("Not enough arguments"));
     };
-    let Ok(amount) = amount_text.parse::<f32>() else {
+    let Ok(amount) = amount_text.parse::<f64>() else {
         return Err(String::from("Invalid amount value"));
     };
-    let operation_type = if amount < 0.0 { OperationType::Withdraw } else { OperationType::Deposit };
-    let amount: u32 = (amount.abs() * 100.0) as u32;
-    let description = args.iter()
+    let operation_type = if amount < 0.0 {
+        OperationType::Withdraw
+    } else {
+        OperationType::Deposit
+    };
+    let amount = amount.abs();
+    let description = args
+        .iter()
         .skip(1)
         .map(String::as_str)
         .collect::<Vec<&str>>()
@@ -84,25 +89,28 @@ fn load_operations() -> Vec<Operation> {
     let reader = BufReader::new(file);
     let mut operations: Vec<Operation> = Vec::new();
     for line in reader.lines() {
-        let fields = line.expect("Could not read line")
-        .split(FIELD_SEPARATOR)
+        let fields = line
+            .expect("Could not read line")
+            .split(FIELD_SEPARATOR)
             .map(|field| field.to_string())
             .collect::<Vec<String>>();
-        let amount = get_or_default(0, &fields).parse().unwrap_or_default();
-        let description = get_or_default(1, &fields);
-        let operation_type = get_or_default(2, &fields).try_into().unwrap();
         let operation = Operation {
-            amount,
-            description,
-            operation_type,
+            amount: get_field(0, &fields).parse().expect("Invalid amount"),
+            description: get_field(1, &fields),
+            operation_type: get_field(2, &fields)
+                .try_into()
+                .expect("Invalid operation type"),
         };
         operations.push(operation);
     }
     operations
 }
 
-fn get_or_default(index: usize, data: &Vec<String>) -> String {
-    data.get(index).unwrap_or(&String::new()).to_string()
+fn get_field(index: usize, fields: &Vec<String>) -> String {
+    let Some(field) = fields.get(index) else {
+        return "".into();
+    };
+    field.clone()
 }
 
 fn save_operations(operations: &Vec<Operation>) {
@@ -112,9 +120,24 @@ fn save_operations(operations: &Vec<Operation>) {
         .append(false)
         .open(FILE_NAME)
         .expect("Couldn't open file");
-    operations.iter()
-        .for_each(|operation| writeln!(file, "{}", operation)
-        .expect("Couldn't write to file"));
+    operations
+        .iter()
+        .for_each(|operation| writeln!(file, "{}", operation).expect("Couldn't write to file"));
+}
+
+fn display_operations(operations: &Vec<Operation>) {
+    let total_amount =
+        operations
+            .iter()
+            .fold(0.0, |balance, operation| match operation.operation_type {
+                OperationType::Deposit => balance + operation.amount,
+                OperationType::Withdraw => balance - operation.amount,
+            });
+    operations
+        .iter()
+        .for_each(|operation| println!("{}", operation));
+    println!("-------------------------------------------------------------------");
+    println!("Total amount: {:.2}", total_amount);
 }
 
 pub fn run() {
@@ -123,11 +146,10 @@ pub fn run() {
         println!("Invalid arguments");
         exit(0);
     }
-
-    let mut operations = Vec::<Operation>::new();
-    /*if let Ok(operation) = parse(&args) {
-        operations.push(operation);
+    let mut operations = load_operations();
+    if let Ok(operation) = parse(&args) {
+        // operations.push(operation);
         save_operations(&operations);
-    }*/
-
+    }
+    display_operations(&operations);
 }
