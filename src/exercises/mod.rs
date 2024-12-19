@@ -8,3 +8,4 @@ pub mod money_with_enums;
 pub mod sales;
 pub mod tic_tac_toe;
 pub mod wc;
+pub mod find;

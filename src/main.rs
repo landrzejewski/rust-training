@@ -41,6 +41,6 @@ fn main() {
     // budget::run();
     // echo::run();
     // cat::run()
-    wc::run()
-
+    // wc::run()
+    find::run()
 }
