@@ -4,8 +4,8 @@ use std::{
     io::{BufRead, BufReader},
 };
 
-use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 use walkdir::{DirEntry, WalkDir};
+use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 
 fn show_help() {
     println!("Usage:");

@@ -18,15 +18,7 @@ cargo check                            # check/build code without generating exe
 cargo fmt                              # format source files in the project
 cargo clean                            # clean project
 */
-
-#![allow(dead_code)]
-mod basic_io;
-mod collections_generics_traits;
-mod exercises;
-mod language_basics;
-mod memory_management;
-
-use exercises::*;
+use rust_training::wrappers;
 
 fn main() {
     // language_basics::run();
@@ -43,5 +35,6 @@ fn main() {
     // cat::run();
     // wc::run();
     // find::run();
-    grep::run();
+    // grep::run();
+    wrappers::run();
 }

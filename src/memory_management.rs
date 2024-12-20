@@ -195,13 +195,13 @@ fn lifetimes() {
         let b = String::from("text");
         a = &b;
     }
-    // println!("{}", a); // error variable owner does not exist
+    // println!("a: {a}"); // error variable owner does not exist
 
     let s1 = String::from("abc");
     let result;
     {
-        //let s2 = String::from("def");
-        // result = get_longer(&s1, &s2);
+        //let s2 = String::from("a");
+        //result = get_longer(&s1, &s2);
         let s2 = "def"; // str is alive/exists for the duration of the application
         result = get_longer(s1.as_str(), s2);
     }

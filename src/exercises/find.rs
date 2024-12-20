@@ -1,7 +1,7 @@
-use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 use regex::Regex;
 use std::io::{stdout, Stdout, Write};
 use walkdir::{DirEntry, WalkDir};
+use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 
 const ELEMENT_TYPE_SEPARATOR: &str = ",";
 
