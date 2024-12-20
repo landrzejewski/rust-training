@@ -54,6 +54,8 @@ trait Serializable {
 
     fn deserialize(bytes: &Vec<u8>) -> Self;
 
+    fn get_field_sizes() -> Vec<usize>;
+
 }
 
 fn write_record<T: Serializable>(data: &T) {
@@ -67,11 +69,12 @@ fn write_record<T: Serializable>(data: &T) {
     file.write(bytes.as_slice()).unwrap();
 }
 
-fn read_record<T: Serializable>(index: u64, record_size: usize) -> T {
+fn read_record<T: Serializable>(index: u64) -> T {
     let mut file = OpenOptions::new()
         .read(true)
         .open(DATABASE_FILE)
         .unwrap();
+    let record_size = T::get_field_sizes().iter().sum();
     let position = record_size as u64 * index;
     file.seek(SeekFrom::Start(position)).unwrap();
     let mut bytes = vec![0; record_size];
@@ -92,17 +95,17 @@ struct User {
 
 impl Serializable for User {
     fn serialize(&self) -> Vec<u8> {
-        const FIELD_SIZES: [usize; 5] = [8, 10, 20, 1, 1];
-        if self.first_name.len() > FIELD_SIZES[1] {
+        let filed_sizes = Self::get_field_sizes();
+        if self.first_name.len() > filed_sizes[1] {
             panic!("First name is too big")
         }
-        if self.last_name.len() > FIELD_SIZES[2] {
+        if self.last_name.len() > filed_sizes[2] {
             panic!("Last name is too big")
         }
         [
             i64_to_bytes(self.id),
-            string_to_bytes(&self.first_name, FIELD_SIZES[1]),
-            string_to_bytes(&self.last_name, FIELD_SIZES[2]),
+            string_to_bytes(&self.first_name, filed_sizes[1]),
+            string_to_bytes(&self.last_name, filed_sizes[2]),
             bool_to_bytes(self.is_active),
             u8_to_bytes(self.age),
         ]
@@ -118,11 +121,13 @@ impl Serializable for User {
             age: u8_from_bytes([bytes[39]]),
         }
     }
+
+    fn get_field_sizes() -> Vec<usize> {
+        vec![8, 10, 20, 1, 1]
+    }
 }
 
 pub fn run() {
-    const USER_RECORD_SIZE: usize = 40;
-
     let first_user = User {
         id: 1,
         first_name: String::from("Łukasz"),
@@ -141,8 +146,8 @@ pub fn run() {
     write_record(&first_user);
     write_record(&second_user);
 
-    let read_first_user: User = read_record(0, USER_RECORD_SIZE);
+    let read_first_user: User = read_record(0);
     println!("{:#?}", read_first_user);
-    let read_second_user: User = read_record(1, USER_RECORD_SIZE);
+    let read_second_user: User = read_record(1);
     println!("{:#?}", read_second_user);
 }
