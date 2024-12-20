@@ -125,6 +125,7 @@ impl Serializable for User {
     fn get_field_sizes() -> Vec<usize> {
         vec![8, 10, 20, 1, 1]
     }
+
 }
 
 pub fn run() {
