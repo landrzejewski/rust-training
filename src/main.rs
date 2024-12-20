@@ -40,7 +40,8 @@ fn main() {
     // basic_io::run();
     // budget::run();
     // echo::run();
-    // cat::run()
-    // wc::run()
-    find::run()
+    // cat::run();
+    // wc::run();
+    // find::run();
+    grep::run();
 }

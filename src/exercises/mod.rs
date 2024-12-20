@@ -10,3 +10,4 @@ pub mod sales;
 pub mod tic_tac_toe;
 pub mod utils;
 pub mod wc;
+pub mod grep;
