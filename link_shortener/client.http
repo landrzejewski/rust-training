@@ -1,0 +1,59 @@
+POST http://localhost:8080/api/links
+Accept: application/json
+Content-Type: application/json
+
+{
+  "originalUrl": "https://google.pl",
+  "shortenedPath": "test",
+  "isActive": true,
+  "expiresAt": "2024-12-20T21:40:00Z"
+}
+
+###
+
+POST http://localhost:8080/api/links?length=6&charSet=Digits
+Accept: application/json
+Content-Type: application/json
+
+{
+  "originalUrl": "https://google.pl",
+  "isActive": true,
+  "expiresAt": "2024-08-16T21:13:00Z"
+}
+
+###
+
+DELETE http://localhost:8080/api/links/0193ca44b2797442b6e0d440a794833c
+Accept: application/json
+Content-Type: application/json
+
+###
+
+PATCH http://localhost:8080/api/links/0193c6ba26e7783e9a00b532af4c9f67
+Accept: application/json
+Content-Type: application/json
+
+{
+  "originalUrl": "https://google.pl",
+  "isActive": false,
+  "tags": ["Rust", "java"],
+  "expiresAt": "2026-12-10T19:53:00Z"
+}
+
+###
+
+GET http://localhost:8080/api/links?pageNumber=0&pageSize=100
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/48407558740952482654
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/health
+Accept: application/json
+Content-Type: application/json

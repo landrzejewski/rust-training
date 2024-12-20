@@ -1,0 +1,13 @@
+[package]
+name = "common"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+uuid = { version = "1.11.0", features = ["v7", "fast-rng"] }
+sha3 = "0.10.8"
+rand = "0.8.5"
+thiserror = "2.0.8"
+serde = { version = "1.0.216", features = ["derive"] }
+qrcode = "0.14.1"
+image = "0.25.5"

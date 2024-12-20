@@ -12,3 +12,4 @@ pub mod utils;
 pub mod wc;
 pub mod grep;
 pub mod grep_classic;
+pub mod db;

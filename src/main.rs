@@ -18,7 +18,7 @@ cargo check                            # check/build code without generating exe
 cargo fmt                              # format source files in the project
 cargo clean                            # clean project
 */
-use rust_training::wrappers;
+use rust_training::threads;
 
 fn main() {
     // language_basics::run();
@@ -36,5 +36,6 @@ fn main() {
     // wc::run();
     // find::run();
     // grep::run();
-    wrappers::run();
+    // wrappers::run();
+    threads::run();
 }

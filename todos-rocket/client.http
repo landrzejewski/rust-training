@@ -1,0 +1,20 @@
+POST http://localhost:8000/api/todos
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Nauczyć się Rusta",
+  "description": "Bardzo łatwe zadanie"
+}
+
+###
+
+GET http://localhost:8000/api/todos/282bd7df-6958-43d4-b3ea-d2bad5566386
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET http://localhost:8000/api/todos?completed=false
+Accept: application/json
+Content-Type: application/json
