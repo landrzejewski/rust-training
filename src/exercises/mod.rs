@@ -11,3 +11,4 @@ pub mod tic_tac_toe;
 pub mod utils;
 pub mod wc;
 pub mod grep;
+pub mod grep_classic;

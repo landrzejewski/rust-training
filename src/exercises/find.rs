@@ -1,4 +1,3 @@
-use std::fs::DirEntry;
 use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 use regex::Regex;
 use std::io::{stdout, Stdout, Write};

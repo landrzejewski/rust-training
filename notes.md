@@ -33,5 +33,12 @@ Books:
 
 Memory management: https://www.youtube.com/watch?v=7_o-YRxf_cc
 
-Rust crate for cooking up terminal user interfaces (TUIs): https://github.com/ratatui/ratatui
-Rust embedded: https://docs.rust-embedded.org/book/start/hardware.html
+Rust crate for cooking up terminal user interfaces (TUIs):
+https://github.com/ratatui/ratatui
+Rust embedded:
+https://docs.rust-embedded.org/book/start/hardware.html
+Testing and benchmarking:
+https://github.com/la10736/rstest
+https://github.com/becheran/ntest
+https://docs.rs/criterion/latest/criterion/
+https://github.com/nvzqz/divan
