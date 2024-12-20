@@ -1,3 +1,4 @@
+use std::fs::DirEntry;
 use crate::exercises::utils::{assert, get_args, is_not_empty, min_length};
 use regex::Regex;
 use std::io::{stdout, Stdout, Write};
@@ -63,13 +64,15 @@ fn find(regex: &Regex, types: &Vec<ElementType>, paths: &Vec<&String>) -> Vec<St
 
     let by_name = |entry: &DirEntry| regex.is_match(entry.file_name().to_str().unwrap_or_default());
 
+    let entry_to_string = |entry: DirEntry| entry.path().display().to_string();
+
     let find_on_path = |path: &String| {
         WalkDir::new(path)
             .into_iter()
-            .filter_map(|element| element.ok())
+            .flatten()
             .filter(by_type)
             .filter(by_name)
-            .map(|entry| entry.path().display().to_string())
+            .map(entry_to_string)
     };
 
     let mut stdout = stdout();

@@ -22,3 +22,16 @@
    * wc - prints the number of bytes, characters, words and lines for the indicated files
    * find - searches and prints the paths of files and/or directories whose names match the indicated patterns (use walkdir and regex libs, use iterators)
    * grep - finds and prints lines containing the indicated text/pattern from the indicated files/paths
+
+Books:
+ The Rust Programming Language, 2nd Edition 
+ Effective Rust
+ Idiomatic Rust
+ Rust Atomics and Locks
+ Async Rust
+ Write Powerful Rust Macros
+
+Memory management: https://www.youtube.com/watch?v=7_o-YRxf_cc
+
+Rust crate for cooking up terminal user interfaces (TUIs): https://github.com/ratatui/ratatui
+Rust embedded: https://docs.rust-embedded.org/book/start/hardware.html
