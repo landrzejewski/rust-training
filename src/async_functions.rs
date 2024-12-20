@@ -2,7 +2,7 @@ use std::thread;
 use std::time::Duration;
 
 use reqwest::Response;
-use tokio::{spawn, time};
+use tokio::time;
 
 async fn task() -> i32 {
     println!("Calculating...{:?}", thread::current());
@@ -25,7 +25,7 @@ pub async fn run() {
     println!("Value: {result}");
     println!("Before end");
 
-    let result = tokio::spawn(get_time());
+    // let result = tokio::spawn(get_time());
 
     // let result = spawn(task());
     println!("Before sleep {:?}", thread::current());
