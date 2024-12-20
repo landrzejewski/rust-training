@@ -6,4 +6,4 @@ RUN cargo install --path .
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y libc6 libssl3 ca-certificates curl && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local/cargo/bin/shortener /usr/local/bin/shortener
-CMD ["link_shortener"]
+CMD ["shortener"]
