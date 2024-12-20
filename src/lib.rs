@@ -6,3 +6,5 @@ pub mod language_basics;
 pub mod memory_management;
 pub mod wrappers;
 pub mod threads;
+pub mod async_functions;
+pub mod unsafe_code;
