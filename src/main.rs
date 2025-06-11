@@ -21,9 +21,12 @@ cargo clean                            # clean project
 */
 
 mod language_basics;
+mod exercises;
 
 fn main() {
     // println!("Hello, world!");
 
-    language_basics::run();
-}
+     language_basics::run();
+    // exercises::fibonacci::run();
+}    
+

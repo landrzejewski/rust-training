@@ -12,10 +12,10 @@ pub fn run() {
     // variable_declaration();
     // constant_declaration();
     // static_values();
-     data_types();
+    // data_types();
     // control_flow();
     // functions();
-    // structs();
+     structs();
     // _ = enums();
 }
 
@@ -253,7 +253,7 @@ fn data_types() {
     let (_, b, c) = tuple; // selected elements can be ignored
     let unit = (); // empty tuple, unit
     let other_tuple: (bool, i32);
-    
+
     /*
     Array
     - groups elements of the same type
@@ -304,7 +304,7 @@ fn control_flow() {
 
     let some_condition = true;
     let _option: char = if some_condition { 'a' } else { 'b' };
-    
+
     /*
     Match expression
     - allow code sections to be executed when a certain condition is met
@@ -390,7 +390,7 @@ fn control_flow() {
     for (index, value) in elements.iter().enumerate() {
         println!("Current element: {}", elements[index]);
     }
-    
+
     for element in elements {
         println!("Current element: {}", element);
     }
@@ -442,11 +442,14 @@ fn structs() {
 
     let Point3d { x, y, z } = point;
     println!("x, y, z: {x}, {y}. {z}");
+
     let Point3d { x: a, y: b, z: c } = point;
-    let Point3d { x: aa, .. } = point;
     println!("x, y, z: {a}, {b}. {c}");
 
+    let Point3d { x: aa, .. } = point;
+
     let active = true;
+
     let mut account = Account {
         email: "john@training.pl".to_string(),
         password: String::from("123"),
@@ -517,6 +520,11 @@ impl Rectangle {
         self.width * self.height
     }
 
+    fn resize(&mut self, by: u32) {
+        self.height = self.height * by;
+        self.width = self.width * by;
+    }
+
     fn is_bigger(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
@@ -535,10 +543,7 @@ impl Rectangle {
     }
 
     fn square_with_default_size() -> Self {
-        Self {
-            width: Self::DEFAULT_SIZE,
-            height: Self::DEFAULT_SIZE,
-        }
+        Rectangle::square(Self::DEFAULT_SIZE)
     }
 }
 
@@ -557,6 +562,7 @@ Enums
 #[allow(unused_variables)]
 fn enums() -> Result<(), String> {
     let qr_code: Barcode = Barcode::Qr(String::from("345345345345"));
+    
     let product_code = Barcode::Product {
         id: 5,
         value: String::from("123"),
@@ -623,19 +629,19 @@ fn enums() -> Result<(), String> {
      }
     */
 
-    let _result = safe_div_with_result(3.0, 3.0)?; // in case of Err return/exit function
-
-    safe_div_with_result(3.0, 3.0).ok();
-
     match safe_div_with_result(3.0, 3.0) {
         Ok(value) => println!("3.0 / 3.0 = {}", value),
         Err(message) => return Err(message),
     }
 
+    let _result = safe_div_with_result(3.0, 3.0)?; // in case of Err return/exit function
+
     // you can use unwrap_or() to extract Ok value from a Result, or use a fallback value if Err.
     let parsed_value = i32::from_str_radix("FF", 16);
     println!("Result: {}", parsed_value.unwrap_or(-1));
 
+    //safe_div_with_result(3.0, 3.0).ok();
+    
     // Option -> Result
 
     let some_option: Option<i32> = Some(42);
