@@ -22,6 +22,7 @@ cargo clean                            # clean project
 
 mod language_basics;
 mod exercises;
+mod memory_management;
 
 fn main() {
     // println!("Hello, world!");
