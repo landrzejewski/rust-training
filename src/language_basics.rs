@@ -12,7 +12,7 @@ pub fn run() {
     // variable_declaration();
     // constant_declaration();
     // static_values();
-    // data_types();
+     data_types();
     // control_flow();
     // functions();
     // structs();
@@ -136,7 +136,7 @@ fn data_types() {
     println!("The smallest i128: {} The biggest i128: {}", i128::MIN, i128::MAX);
     println!("The smallest u128: {} The biggest u128: {}", u128::MIN, u128::MAX);
 
-    // let a: u8 = 300; // in debug mode, the compiler adds integer overflow verification (assertion) and interrupts program execution in case of its occurrence
+     // let a: u8 = 300; // in debug mode, the compiler adds integer overflow verification (assertion) and interrupts program execution in case of its occurrence
 
     /*
     Floating-point numbers
@@ -149,7 +149,7 @@ fn data_types() {
 
     let a = 14.3;
     let b = 14.;
-    let c: f32 = 0.1;
+    let c: f32 = 0.1f32;
 
     // standard mathematical operators are supported https://rust-book.cs.brown.edu/appendix-02-operators.html
     // explicit type conversion is required during calculation
@@ -253,7 +253,7 @@ fn data_types() {
     let (_, b, c) = tuple; // selected elements can be ignored
     let unit = (); // empty tuple, unit
     let other_tuple: (bool, i32);
-
+    
     /*
     Array
     - groups elements of the same type
@@ -304,7 +304,7 @@ fn control_flow() {
 
     let some_condition = true;
     let _option: char = if some_condition { 'a' } else { 'b' };
-
+    
     /*
     Match expression
     - allow code sections to be executed when a certain condition is met
@@ -314,7 +314,7 @@ fn control_flow() {
     let dice_roll = 3;
     let _roll_result = match dice_roll {
         6 => "Win",
-        val @ 1 => {
+        val @ (1 | 2) => {
             println!("You lost! {val}");
             "Loose"
         }
@@ -349,7 +349,7 @@ fn control_flow() {
         _ => println!("Not sure what the weather is."),
     }
 
-    let num = Some(4);
+    let num :Option<i32> = Some(4);
 
     match num {
         Some(x) if x % 2 == 0 => println!("The number {} is even", x), // match guard
@@ -387,6 +387,10 @@ fn control_flow() {
         println!("Current element: {}", elements[index]);
     }
 
+    for (index, value) in elements.iter().enumerate() {
+        println!("Current element: {}", elements[index]);
+    }
+    
     for element in elements {
         println!("Current element: {}", element);
     }
@@ -409,7 +413,7 @@ fn functions() {
 }
 
 fn add(value: i32, other_value: i32) -> i32 {
-    // return value + other_value; // explicit return of the function result
+     //return value + other_value; // explicit return of the function result
     value + other_value // implicit return of the function result (no semicolon at the end)
 }
 

@@ -23,5 +23,7 @@ cargo clean                            # clean project
 mod language_basics;
 
 fn main() {
-    println!("Hello, world!");
+    // println!("Hello, world!");
+
+    language_basics::run();
 }
