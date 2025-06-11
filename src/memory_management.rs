@@ -1,8 +1,8 @@
 use std::rc::Rc;
 
 pub fn run() {
-    // memory_management();
-    lifetimes();
+    memory_management();
+    // lifetimes();
     // pointers();
 }
 
@@ -97,7 +97,7 @@ fn memory_management() {
     let mut a = String::from("aaa");
     let b = &mut a;
     b.push('b'); // b is not the owner, it is just a read only reference
-                 // let c = &a; // read/access is not possible because there is still a chance of mutation (line below)
+    // let c = &a; // read/access is not possible because there is still a chance of mutation (line below)
     b.push('c'); // error
 
     /*
