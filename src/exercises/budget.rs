@@ -60,7 +60,7 @@ impl TryFrom<String> for Operation {
         if parts.len() != PARTS_COUNT {
             return Err("Invalid input".to_string());
         }
-        let amount: f64 = parts[0].parse().map_err(|e| "Invalid amount")?;
+        let amount: f64 = parts[0].parse().map_err(|_| "Invalid amount")?;
         let description = parts[1].to_string();
         let operation_type: OperationType = OperationType::try_from(parts[2].to_string())?;
         let operation = Operation {
@@ -94,7 +94,7 @@ fn save(operations: &Vec<Operation>) {
         .expect("Could not open file");
     operations
         .iter()
-        .for_each(|operation| writeln!(file, "{}", operation).expect("Could not write to file"));
+        .for_each(|operation| writeln!(file, "{operation}").expect("Could not write to file"));
 }
 
 fn get_args() -> Vec<String> {
@@ -123,8 +123,7 @@ pub fn run() {
         println!("Invalid arguments");
         exit(0);
     }
-
-
+    
     let mut operations = load();
 
     if args.len() == 3 {
