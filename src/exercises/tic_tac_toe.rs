@@ -78,7 +78,7 @@ impl TicTacToe {
     }
 
     fn make_move(&mut self, col: usize, row: usize, player: Player) -> bool {
-        if (self.is_valid_move(col, row)) {
+        if self.is_valid_move(col, row) {
             self.board[row][col] = Cell::Taken(player);
             true
         } else {
