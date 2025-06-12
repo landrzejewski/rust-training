@@ -9,3 +9,6 @@ pub mod money_with_enums;
 pub mod sales;
 pub mod tic_tac_toe;
 pub mod tree;
+pub mod wc;
+pub mod find;
+pub mod utils;

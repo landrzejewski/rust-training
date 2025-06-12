@@ -30,6 +30,7 @@ pub fn run() {
         show_help();
         return;
     }
+    
     let mode = options.get(0).map(Mode::from).unwrap_or(Mode::Default);
     cat(&mode, &paths);
 }
