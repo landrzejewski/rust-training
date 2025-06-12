@@ -23,11 +23,14 @@ cargo clean                            # clean project
 mod language_basics;
 mod exercises;
 mod memory_management;
+mod collections_generics_traits;
+mod basic_io;
 
 fn main() {
     // println!("Hello, world!");
 
      language_basics::run();
     // exercises::fibonacci::run();
+     exercises::tic_tac_toe::run();
 }    
 
