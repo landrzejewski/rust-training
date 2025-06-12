@@ -11,7 +11,6 @@ impl Integer {
     }
 }
 
-
 // https://doc.rust-lang.org/std/ops/index.html
 
 impl Add<Integer> for Integer {

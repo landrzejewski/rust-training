@@ -14,7 +14,7 @@ fn collections() {
 
     let mut numbers = Vec::<i32>::new();
     //let mut numbers: Vec<i32> = Vec::new();
-    
+
     numbers.push(1);
     numbers.push(2);
     numbers.push(3);
@@ -35,12 +35,16 @@ fn collections() {
     let letters_slice = &letters[0..1];
 
     // https://crates.io/crates/itertools
-    let modified_values: Vec<i32> = numbers.iter()
+    let modified_values: Vec<i32> = numbers
+        .iter()
         .map(|number| number * 2)
         .filter(|number| number % 2 == 0)
         .collect();
 
-    _ = numbers.iter_mut().map(|number| *number = *number * 2).collect::<Vec<_>>();
+    _ = numbers
+        .iter_mut()
+        .map(|number| *number = *number * 2)
+        .collect::<Vec<_>>();
 
     for number in &numbers {
         println!("Number: {number}");
@@ -82,7 +86,7 @@ fn generics_and_traits() {
     other_point.print_info();
 
     shape_factory(true).print_info();
-    
+
     let circle_shape = shape_factory(true);
     circle_shape.print_info();
 
@@ -198,7 +202,10 @@ fn draw_shape(shape: &dyn Shape) {
 }
 
 //fn generic_ops<T>(first_value: T, second_value: T) -> T where T: Add<Output=T> + Sub<Output=T> + Display {
-fn generic_ops<T: Add<Output = T> + Sub<Output = T> + Display>(first_value: T, second_value: T) -> T {
+fn generic_ops<T: Add<Output = T> + Sub<Output = T> + Display>(
+    first_value: T,
+    second_value: T,
+) -> T {
     println!("{}", first_value);
     println!("{}", second_value);
     first_value + second_value

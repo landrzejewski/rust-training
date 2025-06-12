@@ -51,6 +51,6 @@ impl Money {
 pub fn run() {
     let money = Money::new(3.14);
     let result = money.subtract(Money::new(3.0)).unwrap();
-    let money_in_eur= Money::exchange(&result, 3.14, Currency::Eur).unwrap();
+    let money_in_eur = Money::exchange(&result, 3.14, Currency::Eur).unwrap();
     println!("Result: {:?}", result);
 }

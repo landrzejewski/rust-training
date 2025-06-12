@@ -36,9 +36,15 @@ impl MonetaryAmount {
 }
 
 pub fn run() {
-    let mut balance = MonetaryAmount { value: 1_000.0, currency: EUR };
+    let mut balance = MonetaryAmount {
+        value: 1_000.0,
+        currency: EUR,
+    };
 
-    let result = balance.add(&MonetaryAmount { value: 10.0, currency: EUR });
+    let result = balance.add(&MonetaryAmount {
+        value: 10.0,
+        currency: EUR,
+    });
 
     println!("Operation result: {result:?}");
     println!("Balance: {:?}", balance);

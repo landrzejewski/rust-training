@@ -20,19 +20,17 @@ cargo clippy                           # lint project
 cargo clean                            # clean project
 */
 
-mod language_basics;
-mod exercises;
-mod memory_management;
-mod collections_generics_traits;
 mod basic_io;
+mod collections_generics_traits;
+mod exercises;
+mod language_basics;
+mod memory_management;
 mod wrappers;
 
 fn main() {
     // println!("Hello, world!");
 
     // language_basics::run();
-     memory_management::run();
-    // exercises::fibonacci::run();
-    // exercises::tic_tac_toe::run();
-}    
-
+    // memory_management::run();
+    exercises::cat::run();
+}

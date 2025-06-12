@@ -1,5 +1,5 @@
 use std::env;
-use std::fmt::{write, Display, Formatter};
+use std::fmt::{Display, Formatter, write};
 use std::fs::{File, OpenOptions};
 use std::io::{BufRead, BufReader, Write};
 use std::process::exit;
@@ -78,7 +78,7 @@ fn load() -> Vec<Operation> {
     let mut operations = Vec::new();
     for line in reader.lines() {
         let text = line.expect("Could not read line");
-        let operation =  Operation::try_from(text).expect("Invalid input");
+        let operation = Operation::try_from(text).expect("Invalid input");
         operations.push(operation);
     }
     operations
@@ -123,7 +123,7 @@ pub fn run() {
         println!("Invalid arguments");
         exit(0);
     }
-    
+
     let mut operations = load();
 
     if args.len() == 3 {

@@ -196,7 +196,7 @@ fn lifetimes() {
         a = &b;
     }
     // println!("a: {a}"); // error variable owner does not exist
-    
+
     let s1 = String::from("abc");
     let result;
     {
@@ -214,7 +214,6 @@ fn lifetimes() {
         first_name: "Jan",
         last_name: &last_name,
     };
-    
 }
 
 /*
@@ -295,5 +294,8 @@ struct Employee {
 
 fn use_employee(rc_emp: &Rc<Employee>) {
     let c = Rc::clone(&rc_emp);
-    println!("Reference count inside function is {}", Rc::strong_count(&c));
+    println!(
+        "Reference count inside function is {}",
+        Rc::strong_count(&c)
+    );
 }

@@ -9,8 +9,10 @@ pub fn run() {
     loop {
         println!("Please input number: ");
         let mut provided_number = String::new();
-        stdin().read_line(&mut provided_number).expect("Read line failed");
-        
+        stdin()
+            .read_line(&mut provided_number)
+            .expect("Read line failed");
+
         let Ok(guess) = provided_number.trim().parse::<usize>() else {
             continue;
         };

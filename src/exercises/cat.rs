@@ -1,3 +1,4 @@
+use std::process::abort;
 use std::{
     env,
     fs::File,
@@ -34,7 +35,9 @@ pub fn run() {
 }
 
 fn get_config() -> (Vec<String>, Vec<String>) {
-   todo!()
+    env::args()
+        .skip(1)
+        .partition(|arg| arg.starts_with(ARG_PREFIX))
 }
 
 fn show_help() {
@@ -46,8 +49,32 @@ fn show_help() {
 }
 
 fn cat(mode: &Mode, paths: &Vec<String>) {
-    todo!()
+    let print_line: Printer = match mode {
+        Mode::Numbering { empty: false } => print_with_numbering,
+        Mode::Numbering { empty: true } => print_with_numbering_ignoring_empty,
+        _ => print,
+    };
+
+    for path in paths {
+        let Ok(file) = File::open(path) else {
+            eprintln!("Filed to open the file: {path}");
+            continue;
+        };
+        println!("File: {path}");
+        BufReader::new(file)
+            .lines()
+            .enumerate()
+            .for_each(|(index, line)| print_line(index + 1, &line.expect("Failed to read line")));
+    }
 }
+
+fn print_line(line_number: usize, line: &String, printer: &Printer) {
+    printer(line_number, line)
+}
+
+type Printer = fn(usize, &String);
+
+// type Distance = usize;
 
 fn print(_line_number: usize, line: &String) {
     println!("{line}");
