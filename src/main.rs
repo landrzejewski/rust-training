@@ -25,6 +25,7 @@ mod exercises;
 mod memory_management;
 mod collections_generics_traits;
 mod basic_io;
+mod wrappers;
 
 fn main() {
     // println!("Hello, world!");

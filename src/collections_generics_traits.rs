@@ -14,6 +14,7 @@ fn collections() {
 
     let mut numbers = Vec::<i32>::new();
     //let mut numbers: Vec<i32> = Vec::new();
+    
     numbers.push(1);
     numbers.push(2);
     numbers.push(3);
@@ -34,7 +35,10 @@ fn collections() {
     let letters_slice = &letters[0..1];
 
     // https://crates.io/crates/itertools
-    let modified_values: Vec<i32> = numbers.iter().map(|number| number * 2).filter(|number| number % 2 == 0).collect();
+    let modified_values: Vec<i32> = numbers.iter()
+        .map(|number| number * 2)
+        .filter(|number| number % 2 == 0)
+        .collect();
 
     _ = numbers.iter_mut().map(|number| *number = *number * 2).collect::<Vec<_>>();
 
@@ -66,7 +70,7 @@ fn collections() {
 fn generics_and_traits() {
     println!("Value i32 as string {}", to_string(32));
     println!("Value bool as string {}", to_string(true));
-    println!("Value i64 as string {}", to_string(64i64));
+    println!("Value i64 as string {}", to_string(64_i64));
 
     let point = Point { x: 30, y: 20 };
     let other_point = Point { x: 30.0, y: 20.0 };
@@ -78,7 +82,8 @@ fn generics_and_traits() {
     other_point.print_info();
 
     shape_factory(true).print_info();
-    let circle_shape = shape_factory(false);
+    
+    let circle_shape = shape_factory(true);
     circle_shape.print_info();
 
     draw_shape(circle_shape.as_ref());
@@ -130,6 +135,12 @@ trait Show {
         println!("Info {}", self.get_info());
     }
 }
+
+/*impl<T: Display> Show for Point<T> {
+    fn get_info(&self) -> String {
+        todo!()
+    }
+}*/
 
 // impl<T: Display + Clone> Display for Point<T> {
 
@@ -227,7 +238,8 @@ impl Debug for Coord {
 }
 */
 
-fn create_user(repository: &impl Repository) {
+// fn create_user(repository: &impl Repository) {
+fn create_user<T: Repository>(repository: &T) {
     repository.save();
 }
 
