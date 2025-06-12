@@ -1,8 +1,8 @@
 use std::rc::Rc;
 
 pub fn run() {
-    memory_management();
-    // lifetimes();
+    // memory_management();
+    lifetimes();
     // pointers();
 }
 
@@ -196,25 +196,25 @@ fn lifetimes() {
         a = &b;
     }
     // println!("a: {a}"); // error variable owner does not exist
-
+    
     let s1 = String::from("abc");
     let result;
     {
         //let s2 = String::from("a");
         //result = get_longer(&s1, &s2);
-        let s2 = "def"; // str is alive/exists for the duration of the application
+        let s2 = "def"; // str is alive/exists for the duration of the application 
         result = get_longer(s1.as_str(), s2);
     }
     println!("{}", result);
 
-    let last_name = String::from("Kowalski");
-    let address = String::from("tests");
+    // let last_name = String::from("Kowalski");
+    let last_name = "Kowalski";
 
-    /*let client = Person {
+    let client = Person {
         first_name: "Jan",
         last_name: &last_name,
-        address,
-    };*/
+    };
+    
 }
 
 /*
@@ -233,10 +233,9 @@ fn get_longer<'a>(text: &'a str, other_text: &'a str) -> &'a str {
 }
 
 // Person instance cannot survive longer than the properties it holds/stores
-struct Person<'a, T> {
+struct Person<'a> {
     first_name: &'a str,     // implicit static
     last_name: &'static str, // static denotes the lifetime of the entire program
-    address: T,
 }
 
 // memory will be destroyed before potential use

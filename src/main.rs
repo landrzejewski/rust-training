@@ -29,8 +29,9 @@ mod basic_io;
 fn main() {
     // println!("Hello, world!");
 
-     language_basics::run();
+    // language_basics::run();
+     memory_management::run();
     // exercises::fibonacci::run();
-     exercises::tic_tac_toe::run();
+    // exercises::tic_tac_toe::run();
 }    
 
