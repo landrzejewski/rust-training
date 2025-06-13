@@ -14,7 +14,7 @@ mod handler;
 async fn main() -> io::Result<()> {
     const ACTIX_LOGGER: &str = "RUST_LOG";
     if env::var_os(ACTIX_LOGGER).is_none() {
-        env::set_var(ACTIX_LOGGER, "actix_web=info");
+        unsafe { env::set_var(ACTIX_LOGGER, "actix_web=info"); }
     }
     env_logger::init();
     let app_data = web::Data::new(AppState::new());
