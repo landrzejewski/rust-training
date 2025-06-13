@@ -26,6 +26,7 @@ mod exercises;
 mod language_basics;
 mod memory_management;
 mod wrappers;
+mod threads;
 
 fn main() {
     // println!("Hello, world!");
