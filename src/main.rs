@@ -27,6 +27,9 @@ mod language_basics;
 mod memory_management;
 mod wrappers;
 mod threads;
+mod async_functions;
+mod integration;
+mod unsafe_code;
 
 fn main() {
     // println!("Hello, world!");
