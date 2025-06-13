@@ -33,5 +33,5 @@ fn main() {
 
     // language_basics::run();
     // memory_management::run();
-    exercises::cat::run();
+    threads::run()
 }
