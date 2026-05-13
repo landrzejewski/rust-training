@@ -1,5 +1,6 @@
 use std::io::stdin;
 use exercises::fibonacci;
+use crate::exercises::tic_tac_toe;
 
 mod mod_001a_comments_variables_mutability_scope_shadowing;
 mod mod_001b_constants_statics;
@@ -11,11 +12,13 @@ mod mod_006_ownership_and_lifetimes;
 mod exercises;
 
 fn main() {
-    let mut input = String::new();
+    tic_tac_toe::run();
+    
+    /*let mut input = String::new();
     stdin().read_line(&mut input)
         .expect("Failed to read line");
     let value: i32 = input.parse()
         .expect("Please type a number!");
-    println!("echo: {}", value);
+    println!("echo: {}", value);*/
 
 }
