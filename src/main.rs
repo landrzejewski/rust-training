@@ -1,3 +1,4 @@
+use std::io::stdin;
 use exercises::fibonacci;
 
 mod mod_001a_comments_variables_mutability_scope_shadowing;
@@ -10,6 +11,11 @@ mod mod_006_ownership_and_lifetimes;
 mod exercises;
 
 fn main() {
-    fibonacci::run();
-    mod_006_ownership_and_lifetimes::run();
+    let mut input = String::new();
+    stdin().read_line(&mut input)
+        .expect("Failed to read line");
+    let value: i32 = input.parse()
+        .expect("Please type a number!");
+    println!("echo: {}", value);
+
 }
