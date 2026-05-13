@@ -94,7 +94,7 @@ fn ownership_rules() {
         name: String::from("staging"),
         debug: true,
     };
-    let Config { name, .. } = c3; // `name` (String) is moved out of c3
+    let Config { name, debug } = c3; // `name` (String) is moved out of c3
     println!("moved name: {name}");
     // println!("{}", c3.name); // ERROR: value used after partial move
     println!("debug still accessible: {}", c3.debug); // bool is Copy — OK
@@ -222,7 +222,8 @@ fn take_ownership(vec: Vec<i32>) {
 
 // Returns an owned value — ownership transfers to the caller
 fn give_ownership() -> Vec<i32> {
-    vec![10, 20, 30]
+    let a = vec![10, 20, 30];
+    a
 }
 
 // Takes ownership, modifies, and returns — round-trip transfer
