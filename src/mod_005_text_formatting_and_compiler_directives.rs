@@ -576,7 +576,7 @@ fn build_environment_macros() {
     // include_str! — inline a file as a &'static str at compile time.
     // We point at Cargo.toml from this source file (src/basic/...),
     // which is two levels above us on disk.
-    const CARGO_TOML: &str = include_str!("../../Cargo.toml");
+    const CARGO_TOML: &str = include_str!("../Cargo.toml");
     let first_line = CARGO_TOML.lines().next().unwrap_or("<empty>");
     println!(
         "include_str!(\"../../Cargo.toml\") — {} bytes, first line: {first_line:?}",
@@ -586,7 +586,7 @@ fn build_environment_macros() {
     // include_bytes! — inline the same file as a &'static [u8; N].
     // The macro returns a reference to a fixed-size array, so its
     // length is known at compile time.
-    const CARGO_TOML_BYTES: &[u8] = include_bytes!("../../Cargo.toml");
+    const CARGO_TOML_BYTES: &[u8] = include_bytes!("../Cargo.toml");
     println!(
         "include_bytes!(\"../../Cargo.toml\") — {} bytes, first byte = {:#04x}",
         CARGO_TOML_BYTES.len(),
