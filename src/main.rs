@@ -9,6 +9,11 @@ mod mod_003_operators;
 mod mod_004_functions_and_control_flow;
 mod mod_005_text_formatting_and_compiler_directives;
 mod mod_006_ownership_and_lifetimes;
+mod mod_007_structs_enums_and_collections;
+mod mod_008_generics_and_traits;
+mod mod_009_error_handling;
+mod mod_010_text_processing_file_system_and_env;
+
 mod exercises;
 
 fn main() {

@@ -423,6 +423,42 @@ fn references_and_borrowing() {
     let cloned = r.clone(); // or (*r).clone() — equivalent via auto-deref
     println!("cloned from ref: {cloned}");
 
+    let x1 = (1, 2);
+    let x2 = x1; // copy
+
+    let t1 = (1, String::from("hello"));
+    let t2 = t1; // move
+
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    let p1 = Point { x: 1, y: 2 };
+    let p2 = p1; // move
+
+    // p1.y; // compilation error
+    p2.y;
+
+    #[derive(Copy, Clone)]
+    struct Point1 {
+        x: i32,
+        y: i32,
+    }
+
+    let p1 = Point1 { x: 1, y: 2 };
+    let p2 = p1; // copy
+
+    p1.y;
+    p2.y;
+
+    // #[derive(Copy, Clone)]
+    struct Point3 {
+        x: i32,
+        y: i32,
+        name: String
+    }
+
     println!("references_and_borrowing section executed");
 }
 
@@ -551,6 +587,10 @@ struct Excerpt<'a> {
     text: &'a str,
 }
 
+struct B<'b> {
+    text: &'b Excerpt<'b>,
+}
+
 // Lifetime elision (rule 3): methods with &self — the compiler
 // assigns self's lifetime to the output automatically
 impl<'a> Excerpt<'a> {
@@ -563,21 +603,6 @@ impl<'a> Excerpt<'a> {
 // storage by the compiler, so the result outlives any input lifetime
 fn static_value(_a: &i32, _b: &i32) -> &'static i32 {
     &6
-}
-
-// A struct with lifetime 'a — its method introduces a separate 'b
-// for the self borrow. The return type is tied to 'b (how long you
-// borrow self), not 'a (how long the data lives).
-struct ArrayProcessor<'a> {
-    data: &'a [i32],
-}
-
-impl<'a> ArrayProcessor<'a> {
-    fn update_data<'b>(&'b mut self, new_data: &'a [i32]) -> &'b [i32] {
-        let previous_data = self.data;
-        self.data = new_data;
-        previous_data
-    }
 }
 
 // Lifetime elision (rule 2): one input reference, so the compiler
@@ -613,12 +638,13 @@ fn lifetimes() {
     let s1 = String::from("long string");
     let result;
     {
-        let s2 = String::from("hi");
-        result = longest(s1.as_str(), s2.as_str());
+        let s2: &str = "aaa";
+        result = longest(s1.as_str(), &s2);
         println!("longest: {result}");
         // result cannot be used after this block because s2
         // (the shorter lifetime) is dropped here
     }
+    println!("result: {result}");
 
     // --- Multiple lifetime parameters ---
     let numbers = vec![10, 20, 30];
@@ -682,15 +708,6 @@ fn lifetimes() {
         text: first_word(&novel),
     };
     println!("excerpt via method: {}", excerpt.text());
-
-    // --- Method-level lifetime parameters ---
-    // ArrayProcessor<'a> holds data with lifetime 'a, but its method
-    // introduces 'b for &mut self. The returned slice's lifetime is
-    // tied to the self borrow ('b), not the stored data ('a).
-    let mut processor = ArrayProcessor { data: &[1, 2, 3] };
-    let previous = processor.update_data(&[4, 5, 6]);
-    println!("previous data: {previous:?}");
-    println!("new data: {:?}", processor.data);
 
     println!("lifetimes section executed");
 }
