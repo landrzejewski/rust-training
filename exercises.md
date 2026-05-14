@@ -12,16 +12,16 @@
 * Money can be exchanged/converted to another currency at the indicated exchange rate
 * Money can be added and subtracted with each other
 
-4. Write an application to record receipts/expenditures for the household budget. The application should record the amount,
-   type of operation and its description (given as command line arguments) and generate a report/table in terminal.
-   Report should contain all the operations and a summary/final balance. The application should save the data entered by the user in a plain text file
-
-5. Implement the following system commands in Rust:
+4. Implement the following system commands in Rust:
    * echo - prints the text given as an argument to the standard output
    * cat - prints the contents of the indicated files on the standard output, allows optional line numbering, line numbering can be disabled for blank lines
    * wc - prints the number of bytes, characters, words and lines for the indicated files
    * find - searches and prints the paths of files and/or directories whose names match the indicated patterns (use walkdir and regex libs, use iterators)
    * grep - finds and prints lines containing the indicated text/pattern from the indicated files/paths
+
+5. Write an application to record receipts/expenditures for the household budget. The application should record the amount,
+   type of operation and its description (given as command line arguments) and generate a report/table in terminal.
+   Report should contain all the operations and a summary/final balance. The application should save the data entered by the user in a plain text file
 
 6. Implement Linked list (different variations)
 

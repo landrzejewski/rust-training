@@ -1,3 +1,4 @@
+use fmt::Display;
 use std::any::type_name;
 use std::fmt;
 use std::ops::{Add, AddAssign, Mul, Neg};
@@ -37,7 +38,7 @@ fn f64_as_string(value: f64) -> String {
 }
 
 // Generic replacement — one function handles all Display types
-fn as_string<T: fmt::Display>(value: T) -> String {
+fn as_string<T: Display>(value: T) -> String {
     format!("{value}:{}", type_name::<T>())
 }
 
@@ -186,7 +187,8 @@ impl<T> Pair<T> {
 }
 
 // Bounded generic impl — only available when T: Display
-impl<T: fmt::Display> Pair<T> {
+
+impl<T: Display> Pair<T> {
     fn show(&self) {
         println!("({}, {})", self.first, self.second);
     }
@@ -394,7 +396,7 @@ fn trait_definitions_and_implementations() {
     // Workaround: wrap the foreign type in a local newtype.
     struct PrintableVec(Vec<String>);
 
-    impl fmt::Display for PrintableVec {
+    impl Display for PrintableVec {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             write!(f, "[{}]", self.0.join(", "))
         }
@@ -471,7 +473,7 @@ struct Temperature {
 }
 
 // Display — enables {} formatting
-impl fmt::Display for Temperature {
+impl Display for Temperature {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{:.1}°C", self.celsius)
     }
@@ -678,14 +680,14 @@ fn print_and_clone<T: Describable + Clone>(item: &T) {
 // where clause — cleaner for multiple parameters
 fn compare_and_display<T, U>(a: &T, b: &U)
 where
-    T: fmt::Display,
-    U: fmt::Display,
+    T: Display,
+    U: Display,
 {
     println!("a = {a}, b = {b}");
 }
 
 // impl Trait in argument position — sugar for <T: Display>
-fn print_displayable(item: &impl fmt::Display) {
+fn print_displayable(item: &impl Display) {
     println!("{item}");
 }
 
@@ -881,7 +883,8 @@ impl Renderer for PlainTextRenderer {
 }
 
 // Static dispatch — the compiler monomorphizes one copy per type
-fn render_static(r: &impl Renderer) {
+fn render_static<T: Renderer>(r: &T) {
+// fn render_static(r: &impl Renderer) {
     println!("static:  {}", r.render());
 }
 
@@ -1320,7 +1323,7 @@ fn marker_traits_and_composition() {
     // `?Sized` relaxes this, allowing dynamically sized types (DSTs)
     // like `str` and `[T]`. This is useful for functions accepting
     // both owned types and their unsized counterparts via reference.
-    fn print_ref<T: ?Sized + fmt::Display>(t: &T) {
+    fn print_ref<T: ?Sized + Display>(t: &T) {
         println!("?Sized value: {t}");
     }
     print_ref(&42); // &i32 (Sized)
@@ -1498,14 +1501,14 @@ struct Annotated<'a, T> {
     label: &'a str,
 }
 
-impl<'a, T: fmt::Display> Annotated<'a, T> {
+impl<'a, T: Display> Annotated<'a, T> {
     fn describe(&self) -> String {
         format!("{}: {}", self.label, self.value)
     }
 }
 
 // Function with lifetime + type parameter
-fn longest_display<'a, T: fmt::Display>(items: &'a [T]) -> &'a T {
+fn longest_display<'a, T: Display>(items: &'a [T]) -> &'a T {
     let mut longest_idx = 0;
     let mut longest_len = 0;
     for (i, item) in items.iter().enumerate() {
