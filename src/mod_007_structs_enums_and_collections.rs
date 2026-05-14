@@ -37,7 +37,7 @@ struct Marker;
 
 fn struct_types() {
     // Named-field struct — access fields with dot notation
-    let p = Point { x: 10, y: 20 };
+    let p = Point { y: 20, x: 10, };
     println!("point: ({}, {})", p.x, p.y);
 
     // Tuple struct — access fields by position
@@ -141,7 +141,7 @@ fn struct_features() {
 
     // Struct update syntax — reuse fields from another instance
     let acc2 = Account {
-        email: String::from("bob@example.com"),
+        active: false,
         ..acc.clone() // clone to avoid moving `acc`'s String field
     };
     println!("acc2: {acc2:?}");
@@ -314,7 +314,8 @@ impl Counter {
 fn methods_and_associated_functions() {
     // Associated function — no instance needed
     let rect = Rectangle::new(30, 50);
-    println!("area: {}", rect.area());
+    println!("area: {}", rect.area());  // Rectangle::area(&rect);
+
     println!("max allowed size: {}", Rectangle::MAX_SIZE);
 
     // Method with &mut self — modifies the instance
@@ -632,7 +633,7 @@ enum HttpStatus {
 
 fn enums() {
     // Basic enum — creating and matching variants
-    let dir = Direction::North;
+    let dir = Direction::East;
     let label = match dir {
         Direction::North => "north",
         Direction::South => "south",
@@ -835,7 +836,7 @@ fn parse_and_double(s: &str) -> Result<i32, String> {
     Ok(n * 2)
 }
 
-fn result_type() {
+fn result_type() -> Result<i32, String> {
     // Creating Ok and Err
     let success: Result<i32, &str> = Ok(42);
     let failure: Result<i32, &str> = Err("something failed");
@@ -844,8 +845,10 @@ fn result_type() {
     // Matching on Result
     match parse_and_double("21") {
         Ok(val) => println!("parsed and doubled: {val}"),
-        Err(e) => println!("error: {e}"),
+        Err(e) => return Err(e),
     }
+
+   //  let result = parse_and_double("21")?;
 
     // ? operator — error propagation
     match parse_and_double("abc") {
@@ -875,6 +878,8 @@ fn result_type() {
     println!("Err.ok() = {as_option:?}");
 
     println!("result_type section executed");
+
+    Ok(0)
 }
 
 // =================================================================================================
