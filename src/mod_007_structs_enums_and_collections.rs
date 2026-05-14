@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet};
-
+use clap::builder::Resettable::Value;
 // =================================================================================================
 // Section 1: Struct Types
 // =================================================================================================
@@ -955,8 +955,6 @@ fn if_let_and_let_else() {
     // `if let` collapses that pattern into one line of intent:
     if let Some(val) = config_value {
         println!("config is set to: {val}");
-    } else {
-        println!("config is not set");
     }
 
     // Equivalent full match (more verbose for a single pattern):
@@ -967,9 +965,6 @@ fn if_let_and_let_else() {
 
     // if let with Result
     let parsed: Result<i32, _> = "42".parse();
-    if let Ok(n) = parsed {
-        println!("parsed successfully: {n}");
-    }
 
     // --- while let ---
     // Loop while the pattern continues to match
@@ -1246,7 +1241,7 @@ fn if_let_and_let_else() {
 
 fn vec_collection() {
     // Creation
-    let mut nums: Vec<i32> = Vec::new();
+    let mut nums = Vec::<i32>::new();
     nums.push(10);
     nums.push(20);
     nums.push(30);
@@ -1700,7 +1695,9 @@ fn closures_and_iterators() {
 
     // Closures with iterators — map, filter, for_each
     let numbers = [1, 2, 3, 4, 5];
-    let doubled: Vec<i32> = numbers.iter().map(|x| x * 2).collect();
+    let doubled: Vec<_> = numbers.iter()
+        .map(|x| x * 2)
+        .collect();
     println!("doubled: {doubled:?}");
 
     // .collect() requires the compiler to know the target type.
