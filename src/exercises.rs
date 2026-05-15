@@ -5,7 +5,6 @@ pub mod money;
 pub mod money_with_enums;
 pub mod echo;
 pub mod cat;
-pub mod budget;
 pub mod employees;
 pub mod find;
 pub mod grep;
