@@ -1,3 +1,4 @@
+use proc_macros::{private, public, Greet};
 use crate::exercises::tic_tac_toe;
 
 mod mod_001a_comments_variables_mutability_scope_shadowing;
@@ -87,4 +88,28 @@ fn main() {
     transfer_money!(Give 1);
     transfer_money!(Take 2);
 
+    pub trait Greet {
+        fn greet(&self);
+    }
+
+
+    // derive macro
+    #[derive(Greet)]
+    struct Task {
+        name: String,
+    }
+
+    let a = Task {
+        name: String::from("test"),
+    };
+    a.greet();
+
+    // attribute macro
+    #[public(replace=true)]
+    struct Training;
+
+    // let t = Training;
+
+    // function like macro
+    private!(Training);
 }

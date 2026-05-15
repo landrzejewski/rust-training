@@ -21,19 +21,19 @@ Rust organizes code through a three-level hierarchy: **packages**, **crates**, a
 - A crate is Rust's **compilation unit** — the smallest amount of code the compiler considers at a
   time.
 - **Binary crates** compile to an executable. They must have a `main` function. The crate root is
-  `src/main.rs`.
+  `src/lib`.
 - **Library crates** compile to a reusable library. They have no `main` function. The
   crate root is `src/lib.rs`.
 - Additional binary crates can be placed in `src/bin/` — each `.rs` file there becomes a separate
   binary.
-- **Binary + library best practice.** When a package has both a binary (`src/main.rs`) and a library
+- **Binary + library best practice.** When a package has both a binary (`src/lib`) and a library
   (`src/lib.rs`), the idiomatic split is to put the **entire module tree** in the library and keep
   the binary as a **thin wrapper** that just starts the executable and calls into the library's
   public API. This way the binary crate consumes the library the same way any external user would —
-  forcing you to exercise your own public API. This very project follows that pattern: `src/main.rs`
+  forcing you to exercise your own public API. This very project follows that pattern: `src/lib`
   has an empty `fn main() {}`, while `src/lib.rs` declares `pub mod advanced; pub mod basic; pub mod
   exercises;` — all the training modules live in the library side.
-- The `crate` keyword in paths refers to the root of the current crate (i.e., `src/main.rs` or
+- The `crate` keyword in paths refers to the root of the current crate (i.e., `src/lib` or
   `src/lib.rs`).
 
 ### Modules
@@ -885,7 +885,7 @@ code organization story.
 
 - `cargo install <crate>` compiles a crate from crates.io and installs its executable into
   `$HOME/.cargo/bin`. That directory must be on `$PATH` for the installed binary to be callable from
-  any shell. Only crates with a **binary target** — a `src/main.rs` or an explicit `[[bin]]` entry
+  any shell. Only crates with a **binary target** — a `src/lib` or an explicit `[[bin]]` entry
   in `Cargo.toml` — can be installed this way; library-only crates cannot. Example: `cargo install
   ripgrep` installs the `rg` executable. This repository uses the same mechanism to install
   developer tooling such as `cargo-modules` and `cargo-expand`.

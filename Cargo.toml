@@ -1,3 +1,6 @@
+[workspace]
+members = [".", "proc_macros"]
+
 [package]
 name = "training_project"
 version = "0.1.0"
@@ -12,3 +15,4 @@ thiserror = "2.0.18"
 anyhow = "1.0.102"
 chrono = "0.4.44"
 csv = "1.4.0"
+proc_macros = { path = "proc_macros" }

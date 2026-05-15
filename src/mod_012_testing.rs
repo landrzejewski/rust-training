@@ -366,7 +366,7 @@ Integration tests verify that different parts of a library work together correct
 project/
   src/
     lib.rs              <-- library crate root
-    main.rs             <-- binary crate (optional)
+    lib             <-- binary crate (optional)
   tests/
     order_tests.rs      <-- integration test (separate crate)
     payment_tests.rs    <-- integration test (separate crate)
@@ -406,7 +406,7 @@ fn order_total_is_price_times_quantity() {
 
 ### Binary Crate Limitation
 
-- Integration tests **cannot** directly import from a binary crate (`src/main.rs`). The binary's
+- Integration tests **cannot** directly import from a binary crate (`src/lib`). The binary's
   `main` function is an entry point, not a library API.
 - The common practice is to keep the core logic in a **library crate** (`src/lib.rs`) and have the
   binary be a thin wrapper that calls into the library. This way, integration tests can test the

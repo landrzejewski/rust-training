@@ -754,13 +754,13 @@ fn paths_and_directories() -> Result<(), Box<dyn std::error::Error>> {
     // --- Path building with push (mutating) ---
     let mut built = PathBuf::from("project");
     built.push("src");
-    built.push("main.rs");
-    println!("built with push: {}", built.display()); // project/src/main.rs
+    built.push("lib");
+    println!("built with push: {}", built.display()); // project/src/lib
 
     // --- Path building with join (non-mutating) ---
     let base = Path::new("project");
-    let joined = base.join("src").join("main.rs");
-    println!("built with join: {}", joined.display()); // project/src/main.rs
+    let joined = base.join("src").join("lib");
+    println!("built with join: {}", joined.display()); // project/src/lib
 
     // --- set_extension ---
     let mut file_path = PathBuf::from("report.txt");
