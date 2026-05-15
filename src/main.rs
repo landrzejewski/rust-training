@@ -18,15 +18,73 @@ mod mod_014_threads_and_concurrency;
 
 mod exercises;
 
+macro_rules! make_struct {
+    ($name:ident) => {
+        struct $name {
+            value: i32,
+        }
+    };
+}
+
+macro_rules! log_all {
+    ($($arg:expr),*) => {
+        $(println!("log: {}", $arg);)*
+    };
+}
+
+macro_rules! say {
+    () => {
+        println!("Hello");
+    };
+    ($msg:expr) => {
+        println!("Message: {}", $msg);
+    };
+    ($who:expr, $msg:expr) => {
+        println!("Message: {} from {}", $msg, $who);
+    };
+}
+
+macro_rules! hashmap {
+    ($($key:expr => $value:expr),* $(,)?) => {{
+        let mut map = std::collections::HashMap::new();
+        $(map.insert($key, $value);)*
+        map
+    }};
+}
 
 fn main() {
-    tic_tac_toe::run();
-    
     /*let mut input = String::new();
     stdin().read_line(&mut input)
         .expect("Failed to read line");
     let value: i32 = input.parse()
         .expect("Please type a number!");
     println!("echo: {}", value);*/
+
+    make_struct!(Point);
+
+    let p = Point { value: 5 };
+
+    log_all!("hello", 44, true);
+
+    say!();
+    say!("abc");
+    say!("Jan", "Hello");
+
+    let data = hashmap! {
+        "Jan" => 3,
+        "Hello" => 5,
+    };
+
+    macro_rules! transfer_money {
+        (Give $amount:literal) => {
+            println!("Give money: {}", $amount);
+        };
+        (Take $amount:literal) => {
+            println!("Take money: {}", $amount);
+        }
+    }
+
+    transfer_money!(Give 1);
+    transfer_money!(Take 2);
 
 }
