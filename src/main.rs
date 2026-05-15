@@ -14,8 +14,10 @@ mod mod_010_text_processing_file_system_and_env;
 mod mod_011_access_control_and_code_organization;
 mod mod_012_testing;
 mod mod_013_smart_pointers;
+mod mod_014_threads_and_concurrency;
 
 mod exercises;
+
 
 fn main() {
     tic_tac_toe::run();
