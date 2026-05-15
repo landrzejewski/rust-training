@@ -534,121 +534,7 @@ fn method_chaining_with_question_mark() {
 }
 
 // =================================================================================================
-// Section 6: Layering Result and Option
-// =================================================================================================
-
-/*
-## Layering Result and Option
-
-- **`Result<Option<T>, E>`** — three-way outcome:
-  - `Ok(Some(value))` — operation succeeded, data found.
-  - `Ok(None)` — operation succeeded, no data (expected absence).
-  - `Err(e)` — operation failed (actual error).
-  - Use case: database queries, API lookups — the query itself might fail (error), succeed and find
-    nothing (None), or find data (Some).
-
-- **`Option<Result<T, E>>`** — optional fallible operation:
-  - `None` — operation was not attempted.
-  - `Some(Ok(value))` — attempted and succeeded.
-  - `Some(Err(e))` — attempted and failed.
-  - Use case: optional form fields, conditional processing — the operation is only run if input is
-    present.
-
-- Key difference: `Result<Option<T>, E>` means the operation **must run** (it can fail or find
-  nothing); `Option<Result<T, E>>` means the operation **may not run** at all.
-
-- **`.transpose()`** converts between the two forms: `Option<Result<T, E>>` becomes
-  `Result<Option<T>, E>` and vice versa. Useful when you have one form but need the other.
-*/
-
-// --- Result<Option<T>, E> example: database product lookup ---
-
-struct Product {
-    id: u32,
-    name: String,
-}
-
-#[derive(Debug)]
-enum DbError {
-    ConnectionFailed,
-}
-
-fn find_product(id: u32) -> Result<Option<Product>, DbError> {
-    // Simulate occasional connection failure
-    if id == 999 {
-        return Err(DbError::ConnectionFailed);
-    }
-    // Query succeeds — product may or may not exist
-    match id {
-        1..=100 => Ok(Some(Product {
-            id,
-            name: "Laptop".to_string(),
-        })),
-        _ => Ok(None), // no product found, but query succeeded
-    }
-}
-
-// --- Option<Result<T, E>> example: optional age field ---
-
-fn parse_optional_age(input: Option<&str>) -> Option<Result<u32, ParseIntError>> {
-    // If input is None, the operation is not attempted -> returns None
-    // If input is Some, attempt parsing -> returns Some(Ok(...)) or Some(Err(...))
-    input.map(|s| s.parse::<u32>())
-}
-
-fn layering_result_and_option() {
-    // Result<Option<T>, E>: three possible outcomes
-    match find_product(42) {
-        Ok(Some(p)) => println!("found product: {} (id {})", p.name, p.id),
-        Ok(None) => println!("no product found"),
-        Err(e) => println!("database error: {e:?}"),
-    }
-
-    match find_product(200) {
-        Ok(Some(p)) => println!("found: {}", p.name),
-        Ok(None) => println!("product 200 not found (expected)"),
-        Err(e) => println!("error: {e:?}"),
-    }
-
-    match find_product(999) {
-        Ok(Some(p)) => println!("found: {}", p.name),
-        Ok(None) => println!("not found"),
-        Err(e) => println!("connection failed (expected): {e:?}"),
-    }
-
-    // Option<Result<T, E>>: three possible outcomes
-    match parse_optional_age(Some("25")) {
-        None => println!("age not provided"),
-        Some(Ok(age)) => println!("valid age: {age}"),
-        Some(Err(e)) => println!("invalid age: {e}"),
-    }
-
-    match parse_optional_age(Some("abc")) {
-        None => println!("age not provided"),
-        Some(Ok(age)) => println!("valid age: {age}"),
-        Some(Err(e)) => println!("invalid age input (expected): {e}"),
-    }
-
-    match parse_optional_age(None) {
-        None => println!("age not provided (expected)"),
-        Some(Ok(age)) => println!("age: {age}"),
-        Some(Err(e)) => println!("error: {e}"),
-    }
-
-    // transpose: convert between the two forms
-    let opt_result: Option<Result<i32, ParseIntError>> = Some("42".parse::<i32>());
-    let result_opt: Result<Option<i32>, ParseIntError> = opt_result.transpose();
-    println!("transpose Some(Ok(42)): {result_opt:?}"); // Ok(Some(42))
-
-    let opt_result: Option<Result<i32, ParseIntError>> = None;
-    let result_opt: Result<Option<i32>, ParseIntError> = opt_result.transpose();
-    println!("transpose None: {result_opt:?}"); // Ok(None)
-
-    println!("layering_result_and_option section executed");
-}
-
-// =================================================================================================
-// Section 7: thiserror
+// Section 6: thiserror
 // =================================================================================================
 
 /*
@@ -725,7 +611,7 @@ fn thiserror_crate() {
 }
 
 // =================================================================================================
-// Section 8: anyhow
+// Section 7: anyhow
 // =================================================================================================
 
 /*
@@ -806,7 +692,6 @@ pub fn run() {
     custom_error_types();
     box_dyn_error();
     method_chaining_with_question_mark();
-    layering_result_and_option();
     thiserror_crate();
     anyhow_crate();
 }
