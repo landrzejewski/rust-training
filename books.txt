@@ -1,0 +1,4 @@
+The Rust Programming Language, 3rd Edition
+https://www.amazon.pl/Write-Powerful-Rust-Macros-Overmeire/dp/1633437493
+https://learning.oreilly.com/library/view/async-rust/9781098149086
+https://learning.oreilly.com/library/view/rust-atomics-and/9781098119430
