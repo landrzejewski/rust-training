@@ -12,3 +12,4 @@ pub mod grep_classic;
 pub mod linked_lists;
 pub mod utils;
 pub mod wc;
+pub mod budget;

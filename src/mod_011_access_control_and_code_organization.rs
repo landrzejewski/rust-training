@@ -22,7 +22,7 @@ Rust organizes code through a three-level hierarchy: **packages**, **crates**, a
   time.
 - **Binary crates** compile to an executable. They must have a `main` function. The crate root is
   `src/main.rs`.
-- **Library crates** compile to a reusable library (`.rlib`). They have no `main` function. The
+- **Library crates** compile to a reusable library. They have no `main` function. The
   crate root is `src/lib.rs`.
 - Additional binary crates can be placed in `src/bin/` — each `.rs` file there becomes a separate
   binary.
