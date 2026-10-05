@@ -93,7 +93,7 @@ fn integer_types() {
     println!("u32 range: {} to {}", u32::MIN, u32::MAX);
 
     // usize — pointer-sized unsigned integer, used for indexing
-    let index: usize = 0;
+    let index = 0;
     let items = [10, 20, 30];
     println!("items[{index}] = {}", items[index]);
 
