@@ -21,6 +21,7 @@ cargo clean                            # clean project
 mod mod_001a_comments_variables_mutability_scope_shadowing;
 mod mod_001b_constants_statics;
 mod mod_002_data_types;
+mod mod_004_functions_and_control_flow;
 
 fn main() {
    // println!("Hello, world!");
