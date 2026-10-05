@@ -18,6 +18,7 @@ cargo clippy                           # lint project
 cargo clean                            # clean project
 */
 
+use std::io;
 use exercises::fibonacci;
 
 mod mod_001a_comments_variables_mutability_scope_shadowing;
@@ -28,5 +29,15 @@ mod exercises;
 
 fn main() {
    // println!("Hello, world!");
-   fibonacci::run();
+
+   // Input from cmd
+
+   let mut input = String::new();
+   let count = io::stdin()
+       .read_line(&mut input)
+       .unwrap_or(0);
+   let value = input.parse::<i32>()
+       .unwrap_or(-1);
+
+   println!("{input}");
 }
