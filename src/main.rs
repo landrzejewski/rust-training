@@ -18,12 +18,15 @@ cargo clippy                           # lint project
 cargo clean                            # clean project
 */
 
+use exercises::fibonacci;
+
 mod mod_001a_comments_variables_mutability_scope_shadowing;
 mod mod_001b_constants_statics;
 mod mod_002_data_types;
 mod mod_004_functions_and_control_flow;
+mod exercises;
 
 fn main() {
    // println!("Hello, world!");
-   mod_002_data_types::run();
+   fibonacci::run();
 }
