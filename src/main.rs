@@ -17,9 +17,12 @@ cargo fmt                              # format source files in the project
 cargo clippy                           # lint project
 cargo clean                            # clean project
 */
+
 mod mod_001a_comments_variables_mutability_scope_shadowing;
 mod mod_001b_constants_statics;
+mod mod_002_data_types;
 
 fn main() {
-    println!("Hello, world!");
+   // println!("Hello, world!");\
+   mod_001a_comments_variables_mutability_scope_shadowing::run();
 }
