@@ -48,5 +48,5 @@ fn main() {
    println!("{value}");*/
     
    // exercises::tictactoe::run();
-    exercises::money_with_enums::run();
+    exercises::echo::run();
 }
