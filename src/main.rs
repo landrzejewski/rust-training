@@ -27,6 +27,11 @@ mod mod_001b_constants_statics;
 mod mod_002_data_types;
 mod mod_004_functions_and_control_flow;
 mod exercises;
+mod mod_006_ownership_and_lifetimes;
+mod mod_007_structs_enums_and_collections;
+mod mod_008_generics_and_traits;
+mod mod_009_error_handling;
+mod mod_010_text_processing_file_system_and_env;
 
 fn main() {
    // println!("Hello, world!");
