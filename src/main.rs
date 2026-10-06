@@ -48,5 +48,5 @@ fn main() {
    println!("{value}");*/
     
    // exercises::tictactoe::run();
-    exercises::echo::run();
+    exercises::cat::run();
 }
