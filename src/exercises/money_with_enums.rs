@@ -5,27 +5,27 @@ enum Currency {
 }
 
 #[derive(Debug)]
-struct Money {
+struct Money<'a> {
     value: f64,
-    currency: Currency,
+    currency: &'a Currency,
 }
 
-impl Money {
+impl Money<'_> {
 
     fn add(&self, other: &Money) -> Result<Money, &'static str> {
         self.check_currency(other)?;
-        let new_money = Money::new(self.value + other.value, self.currency.clone());
+        let new_money = Money::new(self.value + other.value, self.currency);
         Ok(new_money)
     }
 
     fn subtract(&self, other: &Money) -> Result<Money, &'static str> {
         self.check_currency(other)?;
-        let new_money = Money::new(self.value - other.value, self.currency.clone());
+        let new_money = Money::new(self.value - other.value, self.currency);
         Ok(new_money)
     }
 
     fn convert(&self, exchange_rate: f64, currency: Currency) -> Result<Money, &'static str> {
-        let new_money = Money::new(self.value * exchange_rate, self.currency.clone());
+        let new_money = Money::new(self.value * exchange_rate, self.currency);
         Ok(new_money)
     }
 
@@ -36,15 +36,16 @@ impl Money {
         Ok(())
     }
 
-    fn new(value: f64, currency: Currency) -> Money {
+    fn new(value: f64, currency: &Currency) -> Money<'_> {
         Money { value, currency }
     }
 
 }
 
 pub fn run() {
-    let money = Money::new(3.14, Currency::Eur);
-    let other = Money::new(60.0, Currency::Eur);
+    let eur = Currency::Eur;
+    let money = Money::new(3.14, &eur);
+    let other = Money::new(60.0, &eur);
     match money.add(&other) {
         Ok(new_money) => println!("Successfully added {:?}", new_money),
         Err(msg) => println!("Error : {}", msg),
