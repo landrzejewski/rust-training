@@ -5,3 +5,4 @@ pub mod money_with_enums;
 pub mod echo;
 pub mod cat;
 pub mod wc;
+pub mod tic_tac_toe_v2;

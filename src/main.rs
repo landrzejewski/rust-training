@@ -32,6 +32,7 @@ mod mod_007_structs_enums_and_collections;
 mod mod_008_generics_and_traits;
 mod mod_009_error_handling;
 mod mod_010_text_processing_file_system_and_env;
+mod mod_011_access_control_and_code_organization;
 
 fn main() {
    // println!("Hello, world!");
