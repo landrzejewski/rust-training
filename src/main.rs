@@ -19,7 +19,7 @@ cargo clean                            # clean project
 */
 
 use std::io;
-use exercises::fibonacci;
+use exercises::{fibonacci, find};
 use crate::exercises::tictactoe;
 
 mod mod_001a_comments_variables_mutability_scope_shadowing;
@@ -35,6 +35,7 @@ mod mod_010_text_processing_file_system_and_env;
 mod mod_011_access_control_and_code_organization;
 mod mod_013_smart_pointers_intro;
 mod mod_012_testing;
+mod threads_and_concurrency;
 
 fn main() {
    // println!("Hello, world!");
@@ -51,5 +52,5 @@ fn main() {
    println!("{value}");*/
     
    // exercises::tictactoe::run();
-    exercises::find::run();
+    find::run();
 }
