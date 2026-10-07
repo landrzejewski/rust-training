@@ -9,3 +9,6 @@ pub mod tic_tac_toe_v2;
 pub mod find;
 pub mod util;
 pub mod grep_classic;
+pub mod grep;
+pub mod budget;
+pub mod employees;
