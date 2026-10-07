@@ -6,3 +6,6 @@ pub mod echo;
 pub mod cat;
 pub mod wc;
 pub mod tic_tac_toe_v2;
+pub mod find;
+pub mod util;
+pub mod grep_classic;
